@@ -179,6 +179,67 @@ body {
 .extlink .ext-emoji { font-size: 2rem; }
 .extlink .arrow { margin-left: auto; color: var(--sky); font-weight: 700; }
 
+/* ---------- Intro page (text + image) ---------- */
+.intro-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+  margin-bottom: 18px;
+}
+.intro-item img {
+  width: 44%;
+  max-width: 360px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 14px;
+  flex-shrink: 0;
+}
+.intro-item.noimg img { display: none; }
+.intro-item.noimg::before {
+  content: "🖼️ 圖片產生中";
+  width: 44%;
+  max-width: 360px;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2b6cb0, #1a3a5c);
+}
+.intro-text h2 { font-size: 1.25rem; margin-bottom: 8px; }
+.intro-text p { color: var(--ink); }
+@media (max-width: 620px) {
+  .intro-item { flex-direction: column; align-items: stretch; gap: 14px; }
+  .intro-item img,
+  .intro-item.noimg::before { width: 100%; max-width: none; }
+}
+
+/* Banner link to intro page (home) */
+.intro-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--sky);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  margin-top: 20px;
+  font-weight: 700;
+}
+.intro-banner .ib-emoji { font-size: 2rem; }
+.intro-banner .arrow { margin-left: auto; }
+.intro-banner small { display: block; font-weight: 400; opacity: 0.9; font-size: 0.85rem; }
+
 /* ---------- Pager ---------- */
 .pager {
   display: flex; justify-content: space-between; gap: 12px;
