@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>直升機反扭矩原理 (6年級科學互動)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2b6cb0;
+      --accent: #ff8a3d;
+      --text: #1a365d;
+      --bg-grid: #e2e8f0;
+      --bar-bg: #edf2f7;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Noto Sans TC', sans-serif;
+      color: var(--text);
+      background-color: white;
+      background-image:
+        linear-gradient(to right, var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--bg-grid) 1px, transparent 1px);
+      background-size: 5mm 5mm;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .app-container {
+      max-width: 900px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(26, 54, 93, 0.1);
+      padding: 2rem;
+      border: 1px solid var(--bg-grid);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    h1 {
+      text-align: center;
+      color: var(--primary);
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+
+    .description {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+
+    .grid-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .grid-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 2px solid var(--bg-grid);
+    }
+
+    .panel h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      border-bottom: 2px solid var(--bg-grid);
+      padding-bottom: 0.5rem;
+    }
+
+    .control-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .control-group label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+      height: 8px;
+    }
+
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.2s;
+      font-family: inherit;
+    }
+
+    button.off {
+      background-color: #a0aec0;
+    }
+
+    .bar-container {
+      margin-bottom: 1rem;
+    }
+
+    .bar-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .bar-bg {
+      width: 100%;
+      height: 16px;
+      background-color: var(--bar-bg);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    #barLift { background-color: var(--primary); }
+    #barTorque { background-color: var(--accent); }
+    #barTail { background-color: var(--primary); }
+
+    .status-box {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-radius: 8px;
+      font-weight: bold;
+      text-align: center;
+      background-color: var(--bar-bg);
+      border: 2px solid var(--bg-grid);
+      transition: all 0.3s ease;
+    }
+
+    .svg-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 1rem;
+      height: 100%;
+      min-height: 350px;
+    }
+
+    svg {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+    }
+
+    @keyframes spin-right {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes spin-left {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <a class="back-link" href="lesson2-2.html">← 回第二堂課 part 2</a>
+    <h1>🚁 直升機反扭矩實驗室</h1>
+    <p class="description">
+      當主旋翼（大螺旋槳）旋轉時，會產生一個反方向的力量，叫做「反扭矩」，會讓整台直升機跟著打轉。<br>
+      <strong>挑戰：調整尾槳推力，讓機身「剛好穩住」</strong>——推太少會被反扭矩擰著轉，推太大又會被推往反方向！
+    </p>
+
+    <div class="grid-layout">
+
+      <!-- 控制與儀表板 -->
+      <div class="left-col">
+        <div class="panel" style="margin-bottom: 1rem;">
+          <h2>控制台</h2>
+          <div class="control-group">
+            <label>主旋翼轉速： <span id="speedVal">60</span>%</label>
+            <input type="range" id="speedSlider" min="0" max="100" value="60">
+          </div>
+          <div class="control-group" style="margin-bottom: 0;">
+            <label>尾槳推力： <span id="tailVal">60</span>%</label>
+            <input type="range" id="tailSlider" min="0" max="100" value="60">
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>儀表板</h2>
+          <div class="bar-container">
+            <div class="bar-label"><span>升力 (主旋翼)</span> <span id="valLift">60%</span></div>
+            <div class="bar-bg"><div class="bar-fill" id="barLift"></div></div>
+          </div>
+          <div class="bar-container">
+            <div class="bar-label"><span>反扭矩 (機身受力)</span> <span id="valTorque">60%</span></div>
+            <div class="bar-bg"><div class="bar-fill" id="barTorque"></div></div>
+          </div>
+          <div class="bar-container">
+            <div class="bar-label"><span>尾槳推力 (抵銷力)</span> <span id="valTail">60%</span></div>
+            <div class="bar-bg"><div class="bar-fill" id="barTail"></div></div>
+          </div>
+          <div class="status-box" id="statusBox">
+            狀態：穩定飛行
+          </div>
+        </div>
+      </div>
+
+      <!-- 視覺呈現 -->
+      <div class="panel">
+        <h2>飛行視角 (由上往下看)</h2>
+        <div class="svg-container">
+          <svg viewBox="0 0 200 200">
+            <!-- 直升機機身群組 -->
+            <g id="heli-body" style="transform-origin: 100px 100px;">
+
+              <!-- 尾管 -->
+              <rect x="96" y="100" width="8" height="75" fill="var(--text)" />
+              <rect x="85" y="165" width="30" height="6" fill="var(--text)" rx="2" />
+
+              <!-- 機身 -->
+              <ellipse cx="100" cy="90" rx="18" ry="45" fill="var(--primary)" />
+              <!-- 駕駛艙玻璃 -->
+              <ellipse cx="100" cy="65" rx="12" ry="15" fill="white" opacity="0.8" />
+
+              <!-- 尾槳群組 -->
+              <g id="tail-rotor" style="transform-origin: 100px 175px;">
+                <line x1="85" y1="175" x2="115" y2="175" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" />
+                <line x1="100" y1="160" x2="100" y2="190" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" />
+                <circle cx="100" cy="175" r="3" fill="white" />
+              </g>
+
+              <!-- 主旋翼群組 (相對於機身旋轉) -->
+              <g id="main-rotor" style="transform-origin: 100px 100px;">
+                <line x1="10" y1="100" x2="190" y2="100" stroke="#718096" stroke-width="6" stroke-linecap="round" opacity="0.8" />
+                <line x1="100" y1="10" x2="100" y2="190" stroke="#718096" stroke-width="6" stroke-linecap="round" opacity="0.8" />
+                <circle cx="100" cy="100" r="10" fill="var(--text)" />
+                <circle cx="100" cy="100" r="4" fill="var(--accent)" />
+              </g>
+
+            </g>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const slider = document.getElementById('speedSlider');
+    const tailSlider = document.getElementById('tailSlider');
+    const speedVal = document.getElementById('speedVal');
+    const tailVal = document.getElementById('tailVal');
+
+    // Bars and Values
+    const barLift = document.getElementById('barLift');
+    const barTorque = document.getElementById('barTorque');
+    const barTail = document.getElementById('barTail');
+    const valLift = document.getElementById('valLift');
+    const valTorque = document.getElementById('valTorque');
+    const valTail = document.getElementById('valTail');
+    const statusBox = document.getElementById('statusBox');
+
+    // SVG Elements
+    const heliBody = document.getElementById('heli-body');
+    const mainRotor = document.getElementById('main-rotor');
+    const tailRotor = document.getElementById('tail-rotor');
+
+    const BALANCE_TOLERANCE = 5; // 淨扭矩在 ±5 內視為穩定
+
+    function setStatus(text, bg, color, border) {
+      statusBox.innerText = text;
+      statusBox.style.backgroundColor = bg;
+      statusBox.style.color = color;
+      statusBox.style.borderColor = border;
+    }
+
+    function updateApp() {
+      const speed = parseInt(slider.value, 10);
+      const tailThrust = parseInt(tailSlider.value, 10);
+      speedVal.innerText = speed;
+      tailVal.innerText = tailThrust;
+
+      // 進度條
+      barLift.style.width = speed + '%';
+      valLift.innerText = speed + '%';
+      barTorque.style.width = speed + '%';
+      valTorque.innerText = speed + '%';
+      barTail.style.width = tailThrust + '%';
+      valTail.innerText = tailThrust + '%';
+
+      // 引擎關閉
+      if (speed === 0) {
+        mainRotor.style.animation = 'none';
+        tailRotor.style.animation = 'none';
+        heliBody.style.animation = 'none';
+        setStatus('狀態：引擎關閉', 'var(--bar-bg)', 'var(--text)', 'var(--bg-grid)');
+        return;
+      }
+
+      // 主旋翼動畫（轉速越高週期越短）
+      const mainDuration = 20 / speed;
+      mainRotor.style.animation = `spin-right ${mainDuration}s linear infinite`;
+
+      // 尾槳動畫（推力越高轉越快，0 時不動）
+      if (tailThrust > 0) {
+        const tailDuration = 10 / tailThrust;
+        tailRotor.style.animation = `spin-right ${tailDuration}s linear infinite`;
+      } else {
+        tailRotor.style.animation = 'none';
+      }
+
+      // 淨扭矩 = 主旋翼反扭矩 − 尾槳推力
+      const netTorque = speed - tailThrust;
+
+      if (Math.abs(netTorque) <= BALANCE_TOLERANCE) {
+        // 平衡：機身穩定
+        heliBody.style.animation = 'none';
+        setStatus('狀態：✅ 飛行穩定（甜蜜點！反扭矩剛好被抵銷）',
+          '#ebf8ff', 'var(--primary)', 'var(--primary)');
+      } else if (netTorque > 0) {
+        // 尾槳推力不足 → 機身被反扭矩擰著（CCW）
+        const bodyDuration = 40 / netTorque;
+        heliBody.style.animation = `spin-left ${bodyDuration}s linear infinite`;
+        setStatus(`狀態：⚠️ 尾槳推力不夠（差 ${netTorque}%）！機身被反扭矩擰著轉`,
+          '#fff5f5', '#c53030', '#fc8181');
+      } else {
+        // 尾槳推力過大 → 機身被推往反方向（CW）
+        const excess = Math.abs(netTorque);
+        const bodyDuration = 40 / excess;
+        heliBody.style.animation = `spin-right ${bodyDuration}s linear infinite`;
+        setStatus(`狀態：⚠️ 尾槳推太用力（超出 ${excess}%）！機身被推往反方向`,
+          '#fffaf0', '#c05621', '#f6ad55');
+      }
+    }
+
+    slider.addEventListener('input', updateApp);
+    tailSlider.addEventListener('input', updateApp);
+
+    // Initialize
+    updateApp();
+  </script>
+</body>
+</html>
