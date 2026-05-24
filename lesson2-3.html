@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第二堂終章：認識四軸無人機｜國小六年級</title>
+<meta name="description" content="第二堂課終章：四軸無人機的祕密——正轉與逆轉馬達、反扭矩兩兩抵消、四個關鍵零件。給國小六年級。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .section-title {
+    font-size: 1.5rem;
+    color: #1a365d;
+    margin: 36px 0 18px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid #ff8a3d;
+    font-weight: 700;
+  }
+  .panel.highlight {
+    border-left: 5px solid #ff8a3d;
+    background: linear-gradient(to right, #fff7ed, #fff);
+  }
+  .panel.highlight .lead {
+    font-size: 1.05rem;
+    color: #1a365d;
+    margin-top: 12px;
+  }
+  .panel.highlight .lead strong { color: #c05621; }
+  .stage-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 22px 22px 20px;
+    margin: 22px 0;
+    box-shadow: 0 4px 14px rgba(43, 108, 176, 0.08);
+    position: relative;
+    border-left: 5px solid #38a169;
+    background: linear-gradient(to right, #f0fff4, #fff);
+  }
+  .stage-card .stage-tag {
+    display: inline-block;
+    background: #38a169;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+  .stage-card h3 {
+    margin: 4px 0 12px;
+    font-size: 1.25rem;
+    color: #1a365d;
+  }
+  .stage-card p {
+    color: #2d3748;
+    line-height: 1.75;
+    margin: 10px 0;
+  }
+  .stage-card .media-image {
+    display: block;
+    width: 100%;
+    border-radius: 12px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    box-shadow: 0 2px 10px rgba(43, 108, 176, 0.12);
+    margin: 8px 0 14px;
+    background: #fff;
+  }
+  .motor-table {
+    background: #fff;
+    border-radius: 12px;
+    padding: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    overflow-x: auto;
+    margin: 14px 0;
+  }
+  .motor-table table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 440px;
+  }
+  .motor-table th {
+    background: #1a365d;
+    color: #fff;
+    padding: 10px 12px;
+    font-weight: 700;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+  .motor-table td {
+    padding: 12px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 0.96rem;
+    color: #2d3748;
+  }
+  .motor-table tr.cw td:first-child { color: #dc2626; font-weight: 700; }
+  .motor-table tr.ccw td:first-child { color: #2563eb; font-weight: 700; }
+  .maintenance-box {
+    background: #fffbeb;
+    border: 2px solid #f6ad55;
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin: 20px 0;
+  }
+  .maintenance-box h4 {
+    margin: 0 0 10px;
+    color: #744210;
+    font-size: 1.05rem;
+  }
+  .maintenance-box ul {
+    margin: 8px 0 0;
+    padding-left: 22px;
+    color: #744210;
+  }
+  .maintenance-box ul li {
+    margin: 6px 0;
+    line-height: 1.6;
+  }
+  .yaw-callout {
+    background: #ebf8ff;
+    border-left: 4px solid #3182ce;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin: 16px 0;
+  }
+  .yaw-callout strong { color: #2c5282; }
+  .parts-table {
+    background: #fff;
+    border-radius: 14px;
+    padding: 6px;
+    box-shadow: 0 4px 14px rgba(43, 108, 176, 0.08);
+    overflow-x: auto;
+    margin: 14px 0;
+  }
+  .parts-table table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 440px;
+  }
+  .parts-table th {
+    background: var(--sky);
+    color: #fff;
+    padding: 12px;
+    font-weight: 700;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+  .parts-table td {
+    padding: 14px 12px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 0.98rem;
+    color: #2d3748;
+  }
+  .parts-table tr.highlight {
+    background: #fff7ed;
+  }
+  .parts-table tr.highlight td:first-child {
+    font-weight: 700;
+    color: #c05621;
+  }
+  .pager .disabled {
+    color: #a0aec0;
+    pointer-events: none;
+    background: #edf2f7;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar">
+    <a href="index.html">← 回課程目錄</a>
+    <span>第二堂課 · 終章</span>
+  </nav>
+
+  <header class="site-head">
+    <span class="kicker">第二堂課 · 終章</span>
+    <h1>🛸 認識四軸無人機</h1>
+    <p>看完直升機的尾槳麻煩，現在來認識主角——<strong>四軸無人機</strong>。</p>
+  </header>
+
+  <section class="panel highlight">
+    <h3>🤔 還記得直升機的問題嗎？</h3>
+    <p>看完直升機那套「轉動 → 反扭矩 → 裝個尾槳救火」的流程，你有沒有覺得<strong>有點囉嗦</strong>？</p>
+    <p>幾十年前，工程師就想了：</p>
+    <p class="lead">「能不能<strong>更聰明一點</strong>，不靠尾槳也能搞定反扭矩？」</p>
+    <p>答案，就是這節課的主角 🛸</p>
+  </section>
+
+  <h2 class="section-title">🔄 四軸的祕密</h2>
+
+  <article class="stage-card">
+    <span class="stage-tag">核心原理</span>
+    <h3>四顆馬達怎麼互相抵銷力量</h3>
+    <p>每一個轉動的馬達都會擰機身一下——這就是<strong>反扭矩</strong>。如果只有 1 顆馬達，四軸會像沒尾槳的直升機一樣<strong>原地打轉，飛不起來</strong>。</p>
+
+    <p>那聰明的設計是這樣的：四軸的 4 顆馬達其實是「兩種」👇</p>
+
+    <div class="motor-table">
+      <table>
+        <thead>
+          <tr>
+            <th>種類</th>
+            <th>旋轉方向</th>
+            <th>數量</th>
+            <th>位置</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="cw">
+            <td>正轉馬達 (CW)</td>
+            <td>順時針 ↻</td>
+            <td>2 顆</td>
+            <td>對角線兩端</td>
+          </tr>
+          <tr class="ccw">
+            <td>逆轉馬達 (CCW)</td>
+            <td>逆時針 ↺</td>
+            <td>2 顆</td>
+            <td>另一條對角線</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <img class="media-image" src="assets/img/quad-motor-layout.png"
+         alt="四軸馬達配置示意圖：紅黑線馬達為正轉 CW，白藍線馬達為逆轉 CCW，對角線同方向，反扭矩兩兩抵消">
+
+    <p><strong>2 顆正轉 + 2 顆逆轉</strong>，反扭矩剛好兩兩抵消，機身穩穩浮在空中，<strong>不用尾槳</strong>。</p>
+
+    <div class="maintenance-box">
+      <h4>🔧 為什麼你應該記住這件事</h4>
+      <p style="margin:0; color:#744210;">組裝或修理無人機時，正轉跟逆轉馬達<strong>不能裝錯位置</strong>——裝錯了，反扭矩無法抵消，四軸會在地上自己轉、飛不起來。</p>
+      <ul>
+        <li><strong>馬達線色（業界較通用）</strong>：紅黑線 = 正轉 (CW)，白藍線 = 逆轉 (CCW)</li>
+        <li><strong>螺旋槳分兩種</strong>：正槳 (CW) 配紅黑線馬達；反槳 (CCW) 配白藍線馬達 — 不能裝錯</li>
+      </ul>
+      <img class="media-image" src="assets/img/cw-ccw-propellers.png" style="margin:14px 0 6px;"
+           alt="正槳與反槳對比圖：正槳刻印 R 配紅黑線馬達，反槳刻印 L 配白藍線馬達，兩者是鏡像對稱，都把空氣往下推產生升力">
+      <ul>
+        <li><strong>螺旋槳顏色</strong>：各廠牌不同，沒有絕對標準 → 看槳上的刻印 (R/L 或箭頭) 才準</li>
+        <li>維修換零件前一定要看清楚標示</li>
+      </ul>
+    </div>
+
+    <div class="yaw-callout">
+      <p style="margin:0;"><strong>⭐ 那要怎麼讓四軸轉向？</strong></p>
+      <p style="margin:8px 0 0;">故意讓某一對馬達轉得比另一對快 → 反扭矩失衡 → 機身原地轉。這個動作叫<strong>「偏航 (yaw)」</strong>。</p>
+    </div>
+  </article>
+
+  <h2 class="section-title">🔧 四個關鍵零件</h2>
+
+  <p>四軸看起來像玩具，但裡面有 4 個分工合作的零件，缺一不可。用「人體」來比喻就清楚了：</p>
+
+  <div class="parts-table">
+    <table>
+      <thead>
+        <tr>
+          <th>零件</th>
+          <th>工作</th>
+          <th>像人體的⋯</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>🔋 電池</td>
+          <td>提供能量</td>
+          <td>心臟／食物</td>
+        </tr>
+        <tr>
+          <td>⚙️ 馬達 ×4</td>
+          <td>提供轉動的力</td>
+          <td>肌肉</td>
+        </tr>
+        <tr>
+          <td>🪶 螺旋槳 ×4</td>
+          <td>把空氣推下去產生升力</td>
+          <td>手掌（划水）</td>
+        </tr>
+        <tr class="highlight">
+          <td>🧠 飛控電腦</td>
+          <td>決定每顆馬達轉多快</td>
+          <td>大腦</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>👉 真正聰明的地方是<strong>飛控電腦</strong>——它每秒鐘判斷上百次，決定每顆馬達該轉多快，讓四軸保持平衡、或飛去你想去的地方。</p>
+
+  <section class="panel think">
+    <h3>💬 想一想</h3>
+    <p>既然四軸靠 4 顆螺旋槳的反扭矩兩兩抵消，那如果<strong>其中一顆螺旋槳壞掉</strong>、或飛行中卡到樹葉停了，會發生什麼事？</p>
+    <p>💡 <strong>提示</strong>：剩下的 3 顆，反扭矩還能剛好抵消嗎？</p>
+    <p>⚠️ <strong>答案</strong>：它會像沒裝尾槳的直升機一樣——<strong>原地打轉、飛不直，很可能直接墜落</strong>。</p>
+    <p>這就是為什麼<strong>飛行前要檢查螺旋槳</strong>。（之後我們會再學更詳細的飛行安全）</p>
+  </section>
+
+  <nav class="pager">
+    <a class="prev" href="lesson2-2.html">← 第二堂 part 2</a>
+    <a class="next disabled" href="#">第三堂籌備中 →</a>
+  </nav>
+
+  <footer>國小四軸無人機教學專案 · 第二堂「飛行原理」· 終章</footer>
+</div>
+</body>
+</html>

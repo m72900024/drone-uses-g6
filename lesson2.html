@@ -3,112 +3,237 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>第二堂：飛行原理｜國小六年級</title>
-<meta name="description" content="第二堂課預告：無人機為什麼能飛起來？牛頓第三運動定律、反扭矩平衡、四種飛行動作。給國小六年級。">
+<title>第二堂上半節：反作用力大集合｜國小六年級</title>
+<meta name="description" content="第二堂課上半節：從走路、氣球、水火箭、火箭、螺旋槳五個例子理解牛頓第三運動定律與反作用力。給國小六年級。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 <style>
-  .coming-badge {
-    display: inline-block;
-    background: #fef3c7;
-    color: #92400e;
-    padding: 6px 14px;
-    border-radius: 999px;
+  .section-title {
+    font-size: 1.5rem;
+    color: #1a365d;
+    margin: 36px 0 18px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid #ff8a3d;
     font-weight: 700;
-    font-size: 0.9rem;
-    margin-bottom: 16px;
   }
-  .preview-list {
-    list-style: none;
-    padding: 0;
-    margin: 16px 0;
-  }
-  .preview-list li {
+  .example-card {
     background: #fff;
-    border-radius: 12px;
-    padding: 14px 18px;
-    margin: 10px 0;
-    border-left: 4px solid var(--sky);
-    box-shadow: 0 2px 8px rgba(43, 108, 176, 0.06);
+    border-radius: 18px;
+    padding: 22px 20px 20px;
+    margin: 22px 0;
+    box-shadow: 0 4px 14px rgba(43, 108, 176, 0.08);
+    position: relative;
   }
-  .preview-list li strong { color: #1a365d; font-size: 1.05rem; display: block; margin-bottom: 4px; }
-  .preview-list li small { color: var(--muted); }
-  .ext-link {
-    display: flex;
+  .example-card .ex-num {
+    position: absolute;
+    top: -14px;
+    left: 20px;
+    background: var(--sky);
+    color: #fff;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    border-radius: 999px;
+    display: inline-flex;
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 6px rgba(43, 108, 176, 0.3);
+    letter-spacing: 0.05em;
+  }
+  .example-card h3 {
+    margin: 8px 0 14px;
+    font-size: 1.2rem;
+    color: #1a365d;
+  }
+  .example-card p {
+    margin-top: 14px;
+    color: #2d3748;
+    line-height: 1.7;
+  }
+  .media-placeholder {
+    background:
+      repeating-linear-gradient(45deg, #f7fafc, #f7fafc 12px, #edf2f7 12px, #edf2f7 24px);
+    border: 2px dashed #cbd5e0;
+    border-radius: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    aspect-ratio: 16 / 9;
+    justify-content: center;
+    color: #4a5568;
+    padding: 16px;
+  }
+  .media-placeholder .mp-icon {
+    font-size: 2.2rem;
+    line-height: 1;
+  }
+  .media-placeholder .mp-label {
+    font-weight: 700;
+    color: #2d3748;
+    font-size: 0.95rem;
+  }
+  .media-placeholder .mp-note {
+    font-size: 0.82rem;
+    color: #718096;
+    max-width: 95%;
+    line-height: 1.5;
+  }
+  .compare-table {
     background: #fff;
     border-radius: 14px;
-    padding: 16px 20px;
-    margin: 14px 0;
-    text-decoration: none;
-    color: inherit;
-    border: 2px solid #e2e8f0;
-    transition: border-color 0.15s, transform 0.15s;
+    padding: 6px;
+    box-shadow: 0 4px 14px rgba(43, 108, 176, 0.08);
+    overflow-x: auto;
+    margin: 14px 0 8px;
   }
-  .ext-link:hover {
-    border-color: var(--sky);
-    transform: translateY(-2px);
+  .compare-table table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 480px;
   }
-  .ext-link .el-emoji { font-size: 1.8rem; }
-  .ext-link .arrow { margin-left: auto; color: var(--sky); font-weight: 700; }
+  .compare-table th {
+    background: var(--sky);
+    color: #fff;
+    padding: 12px 12px;
+    font-weight: 700;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+  .compare-table td {
+    padding: 14px 12px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 0.98rem;
+    color: #2d3748;
+  }
+  .compare-table tr.hilite {
+    background: #fff7ed;
+  }
+  .compare-table tr.hilite td:first-child {
+    font-weight: 700;
+    color: #c05621;
+  }
+  .caption {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 12px 0 28px;
+    font-style: italic;
+  }
+  .panel.highlight {
+    border-left: 5px solid #ff8a3d;
+    background: linear-gradient(to right, #fff7ed, #fff);
+  }
+  .pager .disabled {
+    color: #a0aec0;
+    pointer-events: none;
+    background: #edf2f7;
+  }
+  .media-image {
+    display: block;
+    width: 100%;
+    border-radius: 12px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    box-shadow: 0 2px 10px rgba(43, 108, 176, 0.12);
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
   <nav class="topbar">
     <a href="index.html">← 回課程目錄</a>
-    <span>第二堂課</span>
+    <span>第二堂課 · 上半節</span>
   </nav>
 
   <header class="site-head">
     <span class="kicker">第二堂課 · 飛行原理</span>
-    <span class="coming-badge">⏳ 準備中</span>
     <h1>⚙️ 為什麼無人機飛得起來？</h1>
-    <p>看完第一堂，你知道無人機能做很多事。這一堂要回答一個更基本的問題：<strong>它到底為什麼飛得上去？</strong></p>
+    <p>上一堂看了它能做什麼。這一堂要回答一個更基本的問題：<strong>它到底為什麼能飛上去？</strong></p>
   </header>
 
   <section class="panel">
-    <h3>銜接自然課</h3>
-    <p>這堂課會用到自然課剛學過的「<strong>作用力與反作用力</strong>」（牛頓第三運動定律）。如果還沒學到，沒關係，這堂課會帶你一起搞懂。</p>
+    <h3>🎯 銜接自然課</h3>
+    <p>這堂課會用到自然課的<strong>作用力與反作用力</strong>（牛頓第三運動定律）。沒學到也沒關係，下面五個例子看完就懂。</p>
   </section>
 
-  <section>
-    <h3 style="color:#1a365d; margin-top:24px;">這堂課會講什麼</h3>
-    <ul class="preview-list">
-      <li>
-        <strong>① 螺旋槳怎麼讓無人機飛上去？</strong>
-        <small>螺旋槳把空氣往下推 → 空氣把無人機往上抬（反作用力）</small>
-      </li>
-      <li>
-        <strong>② 為什麼四軸不會自己原地轉圈圈？</strong>
-        <small>相鄰兩個螺旋槳「反方向」轉，互相抵消扭力</small>
-      </li>
-      <li>
-        <strong>③ 怎麼讓它上升、下降、往前飛？</strong>
-        <small>調整四個馬達的轉速比例，就能往任何方向飛</small>
-      </li>
-      <li>
-        <strong>④ 在模擬器裡實際飛飛看</strong>
-        <small>用線上模擬器練習，不用買真的無人機就能上手</small>
-      </li>
-    </ul>
+  <h2 class="section-title">① 反作用力大集合</h2>
+
+  <article class="example-card">
+    <div class="ex-num">例 1</div>
+    <h3>🚶 走路</h3>
+    <img class="media-image" src="assets/img/walking-reaction.png"
+         alt="一個小學生側面走路示意圖：藍色箭頭顯示腳推地的力、橘色箭頭顯示地推腳的反作用力，兩個箭頭從同一接觸點 180 度反向延伸">
+
+    <p>你怎麼往前走？<strong>腳往後蹬，地把你往前推。</strong>現在站起來走兩步，感受看看腳底跟地的對話。</p>
+  </article>
+
+  <article class="example-card">
+    <div class="ex-num">例 2</div>
+    <h3>🎈 氣球放氣</h3>
+    <img class="media-image" src="assets/img/balloon-reaction.png"
+         alt="氣球放氣示意圖：紅色氣球往前飛，結口噴出空氣往後。藍色箭頭顯示氣往後噴、橘色箭頭顯示氣球往前衝，兩個箭頭從氣球結口同一點 180 度反向延伸">
+
+    <p>吹一顆氣球，鬆開——它會亂飛！<strong>氣往後噴，氣球往前衝。</strong>氣球噴出來的東西是「空氣」，跟螺旋槳推的東西一樣。</p>
+  </article>
+
+  <article class="example-card">
+    <div class="ex-num">例 3</div>
+    <h3>🚀 水火箭</h3>
+    <button class="video" data-yt="QR0x3UTKfPI" aria-label="播放影片：桃園市科普列車 水火箭">
+      <img src="https://i.ytimg.com/vi/QR0x3UTKfPI/hqdefault.jpg" alt="科普列車水火箭影片縮圖" loading="lazy"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="fallback" style="display:none">▶ 點我播放：桃園市科普列車「水火箭」（科普新視界）</div>
+      <div class="play"><span></span></div>
+    </button>
+    <p>自然課做過的水火箭，<strong>水往下噴，火箭往上衝</strong>。跟氣球一模一樣的道理，只是噴的東西換成水。</p>
+  </article>
+
+  <article class="example-card">
+    <div class="ex-num">例 4</div>
+    <h3>🌌 真火箭升空</h3>
+    <button class="video" data-yt="hI9HQfCAw64" aria-label="播放影片：真火箭升空">
+      <img src="https://i.ytimg.com/vi/hI9HQfCAw64/hqdefault.jpg" alt="火箭升空影片縮圖" loading="lazy"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="fallback" style="display:none">▶ 點我播放：SpaceX Starship 第五次試飛（含助推器回收）</div>
+      <div class="play"><span></span></div>
+    </button>
+    <p>火箭引擎把<strong>燃燒後的高溫氣體往下噴</strong>，火箭就被推往上方。<strong>極端版的反作用力</strong>——同樣的原理可以把人送上太空。</p>
+  </article>
+
+  <article class="example-card">
+    <div class="ex-num">例 5</div>
+    <h3>🚁 螺旋槳推空氣</h3>
+    <button class="video" data-yt="y4vIpVy_LtI" aria-label="播放影片：UTC 無人機動畫小課堂 飛行原理">
+      <img src="https://i.ytimg.com/vi/y4vIpVy_LtI/hqdefault.jpg" alt="UTC 飛行原理影片縮圖" loading="lazy"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="fallback" style="display:none">▶ 點我播放：UTC 無人機動畫小課堂「飛機是如何飛起來的」（DJI 官方中文）</div>
+      <div class="play"><span></span></div>
+    </button>
+    <p>終於連回來了：<strong>無人機螺旋槳高速轉動，把空氣用力往下推</strong>→ 反作用力把無人機往上抬。原理跟前面四個一樣，只是它做得<strong>非常快、非常穩</strong>。</p>
+  </article>
+
+  <section class="panel highlight">
+    <h3>💡 收尾金句</h3>
+    <p>不管推水、推氣、還是推空氣，只要把東西往一個方向用力推，自己就會被推往反方向——這就是<strong>反作用力</strong>。<strong>無人機只是把這件事做得很快、很穩。</strong></p>
   </section>
 
-  <section>
-    <h3 style="color:#1a365d; margin-top:24px;">想先預習？這個工具可以玩玩</h3>
-    <a class="ext-link" href="https://m72900024.github.io/LOS-Flight-Simulator/" target="_blank" rel="noopener">
-      <span class="el-emoji">🎮</span>
-      <span>
-        <strong>線上無人機模擬器</strong><br>
-        <small>不用裝任何軟體，瀏覽器打開就能練飛行</small>
-      </span>
-      <span class="arrow">→</span>
-    </a>
+  <section class="panel" style="text-align:center; background:#f0f9ff;">
+    <p style="margin:0; color:#1a365d;">中場休息一下 ☕</p>
+    <p style="margin:6px 0 0; color:#4a5568;">下一頁來看：<strong>同樣是反作用力，飛機、直升機、四軸怎麼長得完全不一樣？</strong></p>
   </section>
 
-  <footer>國小四軸無人機教學專案 · 第二堂「飛行原理」</footer>
+  <nav class="pager">
+    <a class="prev" href="lesson1.html">← 第一堂</a>
+    <a class="next" href="lesson2-2.html">下一頁：不同飛機怎麼用反作用力 →</a>
+  </nav>
+
+  <footer>國小四軸無人機教學專案 · 第二堂「飛行原理」· 上半節</footer>
 </div>
+<script src="assets/play.js"></script>
 </body>
 </html>

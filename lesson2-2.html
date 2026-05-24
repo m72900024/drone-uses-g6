@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第二堂下半節：反扭矩與四軸的祕密｜國小六年級</title>
+<meta name="description" content="第二堂課下半節：對比飛機、直升機、四軸三種飛行原理；從直升機反扭矩問題切入，理解為什麼四軸是初學者的最佳選擇。給國小六年級。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .section-title {
+    font-size: 1.5rem;
+    color: #1a365d;
+    margin: 36px 0 18px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid #ff8a3d;
+    font-weight: 700;
+  }
+  .compare-table {
+    background: #fff;
+    border-radius: 14px;
+    padding: 6px;
+    box-shadow: 0 4px 14px rgba(43, 108, 176, 0.08);
+    overflow-x: auto;
+    margin: 14px 0 8px;
+  }
+  .compare-table table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 480px;
+  }
+  .compare-table th {
+    background: var(--sky);
+    color: #fff;
+    padding: 12px 12px;
+    font-weight: 700;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+  .compare-table td {
+    padding: 14px 12px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 0.98rem;
+    color: #2d3748;
+  }
+  .compare-table tr.hilite {
+    background: #fff7ed;
+  }
+  .compare-table tr.hilite td:first-child {
+    font-weight: 700;
+    color: #c05621;
+  }
+  .caption {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 12px 0 28px;
+    font-style: italic;
+  }
+  .stage-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 22px 22px 20px;
+    margin: 22px 0;
+    box-shadow: 0 4px 14px rgba(43, 108, 176, 0.08);
+    position: relative;
+    border-left: 5px solid var(--sky);
+  }
+  .stage-card.solution { border-left-color: #ff8a3d; }
+  .stage-card.smart { border-left-color: #38a169; background: linear-gradient(to right, #f0fff4, #fff); }
+  .stage-card .stage-tag {
+    display: inline-block;
+    background: var(--sky);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+  .stage-card.solution .stage-tag { background: #ff8a3d; }
+  .stage-card.smart .stage-tag { background: #38a169; }
+  .stage-card h3 {
+    margin: 4px 0 12px;
+    font-size: 1.25rem;
+    color: #1a365d;
+  }
+  .stage-card p {
+    color: #2d3748;
+    line-height: 1.75;
+    margin: 10px 0;
+  }
+  .stage-card .analogy {
+    background: #fffbeb;
+    border-left: 3px solid #f6ad55;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-top: 14px;
+    font-size: 0.95rem;
+    color: #744210;
+  }
+  .stage-card .danger {
+    background: #fff5f5;
+    border-left: 3px solid #e53e3e;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-top: 14px;
+    font-size: 0.95rem;
+    color: #742a2a;
+  }
+  .stage-card .media-image {
+    display: block;
+    width: 100%;
+    border-radius: 12px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    box-shadow: 0 2px 10px rgba(43, 108, 176, 0.12);
+    margin: 8px 0 14px;
+  }
+  .pager .disabled {
+    color: #a0aec0;
+    pointer-events: none;
+    background: #edf2f7;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar">
+    <a href="index.html">← 回課程目錄</a>
+    <span>第二堂課 · 下半節</span>
+  </nav>
+
+  <header class="site-head">
+    <span class="kicker">第二堂課 · 下半節</span>
+    <h1>🔄 反扭矩與四軸的祕密</h1>
+    <p>上半節知道了「反作用力」這件事。<strong>同一個原理</strong>，為什麼三種飛機長得完全不一樣？這一節就來解開謎底。</p>
+  </header>
+
+  <h2 class="section-title">🔄 三機種原理對比</h2>
+
+  <div class="compare-table">
+    <table>
+      <thead>
+        <tr>
+          <th>機種</th>
+          <th>怎麼產生升力</th>
+          <th>還要多做什麼</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>✈️ 飛機</td>
+          <td>翼面伯努利原理</td>
+          <td>需要前進的速度，停下來就會掉</td>
+        </tr>
+        <tr>
+          <td>🚁 直升機</td>
+          <td>大旋翼推力</td>
+          <td>要裝尾槳，否則機身會自己轉</td>
+        </tr>
+        <tr class="hilite">
+          <td>🛸 四軸 ⭐</td>
+          <td>4 個螺旋槳推力</td>
+          <td>反扭矩自己抵消，不用尾槳</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="caption">三種飛機都用反作用力，但解法不一樣。下面我們從直升機的問題講起。</p>
+
+  <h2 class="section-title">② 為什麼飛機不會原地打轉？</h2>
+
+  <article class="stage-card">
+    <span class="stage-tag">第一步</span>
+    <h3>🚁 先看直升機怎麼飛起來</h3>
+    <img class="media-image" src="assets/img/helicopter-lift.png"
+         alt="直升機升力示意圖：主旋翼把空氣往下推，反作用力把直升機往上抬">
+    <p>直升機只有<strong>一個大旋翼</strong>。它的工作原理跟上半節的螺旋槳一模一樣：</p>
+    <p>👉 <strong>槳把空氣用力往下推</strong>（藍色箭頭）<br>
+       👉 <strong>反作用力把整台直升機往上抬</strong>（橘色箭頭）</p>
+    <p>升力夠大，直升機就飛起來了。<strong>到這裡都沒問題。</strong></p>
+  </article>
+
+  <article class="stage-card solution">
+    <span class="stage-tag">麻煩 + 解法</span>
+    <h3>🚁 但是有個大麻煩：反扭矩</h3>
+    <img class="media-image" src="assets/img/helicopter-tail-rotor.png"
+         alt="直升機尾槳示意圖：機身因反扭矩想反方向轉，尾槳推一個側向力抵消">
+    <p>大旋翼轉得越快，<strong>機身就越想往反方向轉</strong>（紅色弧形箭頭）。這個現象叫做<strong>「反扭矩」</strong>。</p>
+    <div class="analogy">
+      💡 <strong>想像一下</strong>：你站在溜冰場，用力把雨傘往一個方向轉，你自己會跟著反方向轉一點——直升機就是這樣，只是更嚴重。
+    </div>
+    <p>所以直升機後面要裝一個<strong>小尾槳</strong>（橘色箭頭）。它推出一個側向的力，剛好<strong>抵消反扭矩</strong>，機身才能穩住。</p>
+    <div class="danger">
+      ⚠️ <strong>沒有尾槳的直升機真的會原地打轉</strong>——這就是為什麼直升機後面非裝尾槳不可。
+    </div>
+  </article>
+
+  <section class="panel" style="text-align:center; background:#f0f9ff; margin-top:24px;">
+    <p style="margin:0; color:#1a365d;">直升機要裝尾槳才能不打轉，那四軸呢？</p>
+    <p style="margin:6px 0 0; color:#4a5568;">下一頁來看：<strong>四軸用什麼聰明方法解決反扭矩 →</strong></p>
+  </section>
+
+  <h2 class="section-title" style="border-bottom-color:#a0aec0; font-size:1.2rem; color:#4a5568;">📺 想多看？直升機補充影片</h2>
+
+  <button class="video" data-yt="KWNIdNUkPfo" aria-label="播放影片：詳細介紹直升機飛行原理">
+    <img src="https://i.ytimg.com/vi/KWNIdNUkPfo/hqdefault.jpg" alt="直升機飛行原理影片縮圖" loading="lazy"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+    <div class="fallback" style="display:none">▶ 點我播放：詳細介紹直升機飛行原理（鷹眼科普）</div>
+    <div class="play"><span></span></div>
+  </button>
+
+  <button class="video" data-yt="PbUv2tiiTe4" aria-label="播放影片：揭秘直升機螺旋槳原理" style="margin-top:14px">
+    <img src="https://i.ytimg.com/vi/PbUv2tiiTe4/hqdefault.jpg" alt="直升機螺旋槳原理影片縮圖" loading="lazy"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+    <div class="fallback" style="display:none">▶ 點我播放：揭秘直升機螺旋槳原理（製造原理）</div>
+    <div class="play"><span></span></div>
+  </button>
+
+  <nav class="pager">
+    <a class="prev" href="lesson2.html">← 第二堂 上半節</a>
+    <a class="next" href="lesson2-3.html">下一頁：認識四軸無人機 →</a>
+  </nav>
+
+  <footer>國小四軸無人機教學專案 · 第二堂「飛行原理」· 下半節</footer>
+</div>
+<script src="assets/play.js"></script>
+</body>
+</html>
