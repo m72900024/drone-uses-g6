@@ -3,72 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>無人機的運用｜國小六年級</title>
-<meta name="description" content="無人機有哪些種類？我們專注四軸無人機。生活中六大應用影片導覽，給國小六年級。">
+<title>四軸無人機教學｜國小六年級</title>
+<meta name="description" content="國小六年級四軸無人機課程目錄。第一堂：無人機的運用。第二堂：飛行原理。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
+<style>
+  .lesson-card {
+    display: block;
+    background: #fff;
+    border-radius: 18px;
+    padding: 22px 24px;
+    margin: 18px 0;
+    text-decoration: none;
+    color: inherit;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 16px rgba(43, 108, 176, 0.08);
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  }
+  .lesson-card:hover, .lesson-card:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(43, 108, 176, 0.18);
+    border-color: var(--sky);
+    outline: none;
+  }
+  .lesson-card.coming { opacity: 0.85; }
+  .lesson-card .lc-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+  .lesson-card .lc-num {
+    font-size: 0.85rem;
+    color: var(--sky);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  .lesson-card .lc-status {
+    margin-left: auto;
+    font-size: 0.82rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #e6f4ea;
+    color: #1f7a3a;
+    font-weight: 700;
+  }
+  .lesson-card.coming .lc-status {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .lesson-card h2 {
+    margin: 0;
+    font-size: 1.45rem;
+    color: #1a365d;
+  }
+  .lesson-card .lc-emoji { font-size: 2.2rem; line-height: 1; }
+  .lesson-card .lc-desc {
+    color: var(--muted);
+    margin: 6px 0 10px;
+    font-size: 1rem;
+  }
+  .lesson-card .lc-sub {
+    font-size: 0.9rem;
+    color: var(--muted);
+    border-top: 1px dashed #e2e8f0;
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+  .lesson-card .lc-sub strong { color: #2d3748; }
+  .lesson-card .lc-go {
+    margin-top: 12px;
+    color: var(--sky);
+    font-weight: 700;
+  }
+</style>
 </head>
 <body>
 <div class="wrap">
   <header class="site-head">
     <span class="kicker">國小六年級 · 自然</span>
-    <h1>🚁 無人機可以做什麼？</h1>
-    <p>無人機正在幫人做「人做不到、或太危險」的事。點一張卡片，看看它怎麼運作。</p>
+    <h1>🚁 四軸無人機教學</h1>
+    <p>整個學期分成兩堂課。從「無人機在做什麼」開始，再慢慢搞懂「它為什麼能飛起來」。</p>
   </header>
 
-  <a class="intro-banner" href="types.html">
-    <span class="ib-emoji">🚁</span>
-    <span>課前先讀：無人機有哪些種類？<small>我們這學期專注「四軸無人機」，先搞懂它和別種差在哪</small></span>
-    <span class="arrow">→</span>
+  <a class="lesson-card" href="lesson1.html">
+    <div class="lc-head">
+      <span class="lc-emoji">🎯</span>
+      <span class="lc-num">第一堂課</span>
+      <span class="lc-status">✓ 上課完畢</span>
+    </div>
+    <h2>無人機的運用</h2>
+    <p class="lc-desc">無人機在生活裡到底在做什麼？從空拍到燈光秀，看六個它正在幫人做的工作。</p>
+    <div class="lc-sub">
+      <strong>單元</strong>：無人機種類 · 七大運用一次看懂 · 空拍 / 農業 / 救災 / 物流 / 巡檢 / 燈光秀
+    </div>
+    <div class="lc-go">進入第一堂 →</div>
   </a>
 
-  <a class="intro-banner" href="intro.html">
-    <span class="ib-emoji">📖</span>
-    <span>再看：六大運用一次看懂<small>不想一個個點，先讀這頁圖文總覽</small></span>
-    <span class="arrow">→</span>
+  <a class="lesson-card coming" href="lesson2.html">
+    <div class="lc-head">
+      <span class="lc-emoji">⚙️</span>
+      <span class="lc-num">第二堂課</span>
+      <span class="lc-status">準備中</span>
+    </div>
+    <h2>飛行原理：為什麼飛得起來</h2>
+    <p class="lc-desc">螺旋槳怎麼把無人機抬上天？為什麼四軸不會自己轉圈圈？銜接自然課「作用力與反作用力」。</p>
+    <div class="lc-sub">
+      <strong>預告</strong>：牛頓第三運動定律 · 反扭矩平衡 · 四種飛行動作 · 模擬器實機練習
+    </div>
+    <div class="lc-go">看第二堂預告 →</div>
   </a>
 
-  <main class="grid">
-    <a class="card" href="apps/01-aerial.html">
-      <div class="emoji">🎥</div>
-      <h2>空拍攝影</h2>
-      <p class="one-liner">從天空看世界，一台會飛的相機。</p>
-      <div class="go">看影片 →</div>
-    </a>
-    <a class="card" href="apps/02-agriculture.html">
-      <div class="emoji">🌾</div>
-      <h2>智慧農業</h2>
-      <p class="one-liner">噴藥省 95% 水，農夫少吸農藥。</p>
-      <div class="go">看影片 →</div>
-    </a>
-    <a class="card" href="apps/03-rescue.html">
-      <div class="emoji">🚒</div>
-      <h2>救災搜救</h2>
-      <p class="one-liner">人到不了的地方，先讓它去看。</p>
-      <div class="go">看影片 →</div>
-    </a>
-    <a class="card" href="apps/04-logistics.html">
-      <div class="emoji">📦</div>
-      <h2>物流運送</h2>
-      <p class="one-liner">離島山上缺東西，飛過去送。</p>
-      <div class="go">看影片 →</div>
-    </a>
-    <a class="card" href="apps/05-inspection.html">
-      <div class="emoji">🔍</div>
-      <h2>巡檢監測</h2>
-      <p class="one-liner">又高又危險的地方，代替人去看。</p>
-      <div class="go">看影片 →</div>
-    </a>
-    <a class="card" href="apps/06-lightshow.html">
-      <div class="emoji">✨</div>
-      <h2>燈光秀表演</h2>
-      <p class="one-liner">幾百台一起飛，在天空排出圖案。</p>
-      <div class="go">看影片 →</div>
-    </a>
-  </main>
-
-  <footer>國小四軸無人機教學專案 · 第一堂「無人機的運用」</footer>
+  <footer>國小四軸無人機教學專案</footer>
 </div>
 </body>
 </html>
