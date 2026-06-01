@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第三堂上半節：怎麼控制四軸｜國小六年級</title>
+<meta name="description" content="第三堂課上半節：四軸的 4 種基本動作（上升下降/前進後退/左右側移/原地偏航）以及對應的馬達轉速分配。給國小六年級。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .section-title {
+    font-size: 1.5rem;
+    color: #1a365d;
+    margin: 36px 0 18px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid #ff8a3d;
+    font-weight: 700;
+  }
+  .panel.highlight {
+    border-left: 5px solid #ff8a3d;
+    background: linear-gradient(to right, #fff7ed, #fff);
+  }
+  .media-image {
+    display: block;
+    width: 100%;
+    border-radius: 12px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    box-shadow: 0 2px 10px rgba(43, 108, 176, 0.12);
+    margin: 8px 0 16px;
+  }
+  .media-placeholder {
+    background:
+      repeating-linear-gradient(45deg, #f7fafc, #f7fafc 12px, #edf2f7 12px, #edf2f7 24px);
+    border: 2px dashed #cbd5e0;
+    border-radius: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    aspect-ratio: 16 / 9;
+    justify-content: center;
+    color: #4a5568;
+    padding: 16px;
+  }
+  .media-placeholder .mp-icon { font-size: 2.2rem; }
+  .media-placeholder .mp-label { font-weight: 700; color: #2d3748; font-size: 0.95rem; }
+  .media-placeholder .mp-note { font-size: 0.82rem; color: #718096; max-width: 95%; line-height: 1.5; }
+
+  .action-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin: 16px 0;
+    box-shadow: 0 3px 12px rgba(43, 108, 176, 0.08);
+    border-left: 5px solid var(--sky);
+  }
+  .action-card.throttle { border-left-color: #38a169; }
+  .action-card.pitch    { border-left-color: #2b6cb0; }
+  .action-card.roll     { border-left-color: #d97706; }
+  .action-card.yaw      { border-left-color: #7c3aed; }
+  .action-card .head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .action-card .icon {
+    font-size: 1.8rem;
+    line-height: 1;
+  }
+  .action-card h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    color: #1a365d;
+  }
+  .action-card .jargon {
+    margin-left: auto;
+    font-size: 0.78rem;
+    background: #f1f5f9;
+    color: #475569;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-weight: 700;
+  }
+  .action-card p {
+    color: #2d3748;
+    line-height: 1.7;
+    margin: 8px 0;
+  }
+  .action-card .recipe {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    font-size: 0.92rem;
+    color: #1e293b;
+  }
+  .action-card .recipe strong { color: #c05621; }
+
+  .pager .disabled {
+    color: #a0aec0;
+    pointer-events: none;
+    background: #edf2f7;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar">
+    <a href="index.html">← 回課程目錄</a>
+    <span>第三堂課 · 上半節</span>
+  </nav>
+
+  <header class="site-head">
+    <span class="kicker">第三堂課 · 怎麼控制</span>
+    <h1>🎯 怎麼讓四軸飛去想去的地方？</h1>
+    <p>第一堂看了它能做什麼、第二堂懂了為什麼能飛。<strong>現在最後一個問題</strong>——怎麼控制它？</p>
+  </header>
+
+  <section class="panel highlight">
+    <h3>🤔 還記得我們學到哪了？</h3>
+    <p>第二堂的祕密：<strong>4 顆馬達兩兩抵消反扭矩</strong>，所以四軸能穩穩懸停。</p>
+    <p>但只是「停在原地」沒意思——我們要它<strong>飛去想去的地方</strong>。怎麼辦？</p>
+    <p style="margin-bottom:0;"><strong>答案：故意打破抵消的平衡。</strong>讓某幾顆馬達轉得不一樣，四軸就會傾斜、就會飛走。</p>
+  </section>
+
+  <h2 class="section-title">🎯 4 種基本動作</h2>
+
+  <p>四軸只能做 4 種基本動作，每一種都是<strong>「馬達轉速不一樣」</strong>造成的：</p>
+
+  <img class="media-image" src="assets/img/quad-4-actions.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+       alt="四軸 4 種基本動作對照圖：上升、前進、右移、右轉，各自的馬達轉速分配示意">
+  <div class="media-placeholder" style="display:none">
+    <span class="mp-icon">🛸</span>
+    <span class="mp-label">4 動作對照圖（生成中）</span>
+    <span class="mp-note">2×2 格圖示，每格一台小四軸俯視 + 馬達轉速箭頭 + 移動方向</span>
+  </div>
+
+  <article class="action-card throttle">
+    <div class="head">
+      <span class="icon">🔼</span>
+      <h3>上升 / 下降</h3>
+      <span class="jargon">throttle 油門</span>
+    </div>
+    <p>最簡單的一個：<strong>4 顆馬達一起加速 → 升力變大 → 整台往上</strong>。</p>
+    <p>反過來，4 顆一起減速 → 升力比重力小 → 整台往下。</p>
+    <div class="recipe">
+      <strong>配方</strong>：M1 ⬆️ M2 ⬆️ M3 ⬆️ M4 ⬆️（全部加速 = 上升）
+    </div>
+  </article>
+
+  <article class="action-card pitch">
+    <div class="head">
+      <span class="icon">⬆️</span>
+      <h3>前進 / 後退</h3>
+      <span class="jargon">pitch 俯仰</span>
+    </div>
+    <p><strong>後面 2 顆加速、前面 2 顆減速</strong>。後面升力比較強 → 機尾抬高 → 機頭往下傾 → 升力斜斜往前推，整台就往前飛了。</p>
+    <p>後退就反過來，前面加速、後面減速。</p>
+    <div class="recipe">
+      <strong>配方</strong>：前 2 顆 ⬇️ 後 2 顆 ⬆️（M1 M2 慢、M3 M4 快 = 前進）
+    </div>
+  </article>
+
+  <article class="action-card roll">
+    <div class="head">
+      <span class="icon">↔️</span>
+      <h3>左移 / 右移</h3>
+      <span class="jargon">roll 翻滾</span>
+    </div>
+    <p><strong>一邊 2 顆加速、另一邊 2 顆減速</strong>。哪邊升力強，哪邊就被抬高，機身往對邊傾，整台往對邊飛。</p>
+    <p>右移：左邊加速、右邊減速。左移就反過來。</p>
+    <div class="recipe">
+      <strong>配方</strong>：左 2 顆 ⬆️ 右 2 顆 ⬇️（M1 M3 快、M2 M4 慢 = 右移）
+    </div>
+  </article>
+
+  <article class="action-card yaw">
+    <div class="head">
+      <span class="icon">🔄</span>
+      <h3>原地左轉 / 右轉</h3>
+      <span class="jargon">yaw 偏航</span>
+    </div>
+    <p>還記得第二堂的<strong>反扭矩兩兩抵消</strong>嗎？這個動作就是<strong>故意讓抵消失衡</strong>。</p>
+    <p>左轉：讓 CW 正轉馬達 (M1, M4) 加速 → 它們的 CCW 反扭矩變強 → 機身被擰往左 (CCW)。</p>
+    <p>右轉：讓 CCW 逆轉馬達 (M2, M3) 加速 → 它們的 CW 反扭矩變強 → 機身被擰往右 (CW)。</p>
+    <div class="recipe">
+      <strong>配方</strong>：CW 對角線 ⬆️ CCW 對角線 ⬇️ = 左轉
+    </div>
+  </article>
+
+  <h2 class="section-title">🎬 看 DJI 官方動畫</h2>
+  <p>影片把 4 種動作再用 3D 動畫解一次：</p>
+
+  <button class="video" data-yt="80o2jJPdQcA" aria-label="播放影片：UTC 無人機動畫小課堂 飛行模式">
+    <img src="https://i.ytimg.com/vi/80o2jJPdQcA/hqdefault.jpg" alt="UTC 飛行模式影片縮圖" loading="lazy"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+    <div class="fallback" style="display:none">▶ 點我播放：UTC 無人機動畫小課堂「飛行模式」（DJI 官方中文）</div>
+    <div class="play"><span></span></div>
+  </button>
+
+  <section class="panel" style="text-align:center; background:#f0f9ff; margin-top:24px;">
+    <p style="margin:0; color:#1a365d;">看完原理 → 動手玩玩看 ☕</p>
+    <p style="margin:6px 0 0; color:#4a5568;">下一頁有 <strong>馬達轉速實驗室</strong> + <strong>飛行模擬器</strong>，自己試試看 →</p>
+  </section>
+
+  <nav class="pager">
+    <a class="prev" href="lesson2-3.html">← 第二堂 終章</a>
+    <a class="next" href="lesson3-2.html">下一頁：動手玩 →</a>
+  </nav>
+
+  <footer>國小四軸無人機教學專案 · 第三堂「怎麼控制」· 上半節</footer>
+</div>
+<script src="assets/play.js"></script>
+</body>
+</html>

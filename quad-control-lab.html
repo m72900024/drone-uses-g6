@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>四軸馬達轉速實驗室｜國小六年級</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #2b6cb0;
+    --accent: #ff8a3d;
+    --text: #1a365d;
+    --cw: #dc2626;
+    --ccw: #2563eb;
+    --ok: #16a34a;
+    --warn: #c05621;
+    --grid: #e2e8f0;
+    --bar-bg: #edf2f7;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Noto Sans TC', sans-serif;
+    color: var(--text);
+    background: #fff
+      linear-gradient(to right, var(--grid) 1px, transparent 1px) 0 0/5mm 5mm,
+      linear-gradient(to bottom, var(--grid) 1px, transparent 1px) 0 0/5mm 5mm;
+    min-height: 100vh;
+    padding: 1.5rem 1rem;
+  }
+  .app {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.96);
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(26,54,93,0.08);
+    padding: 1.5rem;
+    border: 1px solid var(--grid);
+  }
+  .back-link {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .back-link:hover { text-decoration: underline; }
+  h1 { text-align: center; color: var(--primary); margin: 0 0 6px; font-size: 1.7rem; }
+  .desc { text-align: center; margin: 0 0 22px; color: #4a5568; line-height: 1.6; }
+  .desc strong { color: var(--text); }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+
+  .panel {
+    background: #fff;
+    padding: 1.2rem;
+    border-radius: 14px;
+    border: 2px solid var(--grid);
+  }
+  .panel h2 {
+    margin: 0 0 14px;
+    font-size: 1.1rem;
+    border-bottom: 2px solid var(--grid);
+    padding-bottom: 8px;
+  }
+
+  /* Visualization */
+  .viewport {
+    aspect-ratio: 1 / 1;
+    max-width: 380px;
+    margin: 0 auto;
+    position: relative;
+    background: linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 100%);
+    border-radius: 12px;
+    border: 2px solid var(--grid);
+    overflow: hidden;
+  }
+  .viewport::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, rgba(43,108,176,0.08) 1px, transparent 1px) 0 0/10% 10%,
+      linear-gradient(to bottom, rgba(43,108,176,0.08) 1px, transparent 1px) 0 0/10% 10%;
+  }
+  .quad-stage {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 60%; height: 60%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.25s ease-out;
+  }
+  .quad-svg { width: 100%; height: 100%; }
+
+  /* Indicators on viewport edges */
+  .indicator {
+    position: absolute;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ok);
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.25s;
+  }
+  .indicator.show { opacity: 1; }
+  .ind-up    { top: 8px; left: 50%; transform: translateX(-50%); }
+  .ind-down  { bottom: 8px; left: 50%; transform: translateX(-50%); }
+  .ind-left  { left: 8px; top: 50%; transform: translateY(-50%); }
+  .ind-right { right: 8px; top: 50%; transform: translateY(-50%); }
+  .ind-yawL, .ind-yawR { bottom: 8px; font-size: 1.2rem; }
+  .ind-yawL { left: 8px; }
+  .ind-yawR { right: 8px; }
+
+  /* Slider controls */
+  .motors-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .motor-control {
+    background: #fff;
+    border: 2px solid var(--grid);
+    border-radius: 10px;
+    padding: 10px;
+  }
+  .motor-control.cw  { border-left: 5px solid var(--cw); }
+  .motor-control.ccw { border-left: 5px solid var(--ccw); }
+  .motor-control .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .motor-control .name {
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .motor-control.cw .name  { color: var(--cw); }
+  .motor-control.ccw .name { color: var(--ccw); }
+  .motor-control .val {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .motor-control input[type="range"] {
+    width: 100%;
+    height: 6px;
+  }
+  .motor-control.cw  input[type="range"] { accent-color: var(--cw); }
+  .motor-control.ccw input[type="range"] { accent-color: var(--ccw); }
+
+  /* Status box */
+  .status-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 14px 0;
+  }
+  .stat {
+    background: #f8fafc;
+    border: 1.5px solid var(--grid);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+  .stat .label {
+    color: #64748b;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  .stat .value {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .stat.ok .value  { color: var(--ok); }
+  .stat.bad .value { color: var(--cw); }
+
+  /* Task buttons */
+  .task-section h3 {
+    margin: 14px 0 8px;
+    font-size: 0.95rem;
+  }
+  .task-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .task-grid button {
+    background: #fff;
+    border: 2px solid var(--grid);
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--text);
+    font-weight: 700;
+    transition: all 0.15s;
+  }
+  .task-grid button:hover {
+    border-color: var(--primary);
+    background: #f0f9ff;
+    transform: translateY(-1px);
+  }
+  .task-grid .reset {
+    grid-column: 1 / -1;
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .task-grid .reset:hover { background: #fff7ed; }
+
+  .hint {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: #fffbeb;
+    border-left: 3px solid #f59e0b;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: #92400e;
+    line-height: 1.5;
+  }
+
+  @keyframes spinCW  { from {transform:rotate(0)} to {transform:rotate(360deg)} }
+  @keyframes spinCCW { from {transform:rotate(0)} to {transform:rotate(-360deg)} }
+</style>
+</head>
+<body>
+<div class="app">
+  <a class="back-link" href="lesson3-2.html">← 回第三堂課 下半節</a>
+  <h1>🧪 四軸馬達轉速實驗室</h1>
+  <p class="desc">
+    4 顆馬達 = 飛去哪裡的關鍵。<br>
+    <strong>自由探索</strong>：拉動 4 個 slider 看四軸怎麼動。<br>
+    <strong>任務按鈕</strong>：點按鈕看「往前飛」「右轉」等動作對應的馬達配置。
+  </p>
+
+  <div class="layout">
+
+    <!-- 左：四軸視覺化 -->
+    <div class="panel">
+      <h2>🛸 飛行視角（俯視）</h2>
+      <div class="viewport">
+        <span class="indicator ind-up">⬆️</span>
+        <span class="indicator ind-down">⬇️</span>
+        <span class="indicator ind-left">⬅️</span>
+        <span class="indicator ind-right">➡️</span>
+        <span class="indicator ind-yawL">↺ 左轉</span>
+        <span class="indicator ind-yawR">右轉 ↻</span>
+
+        <div class="quad-stage" id="quadStage">
+          <svg class="quad-svg" viewBox="0 0 100 100">
+            <!-- X frame -->
+            <line x1="22" y1="22" x2="78" y2="78" stroke="#334155" stroke-width="5" stroke-linecap="round" />
+            <line x1="78" y1="22" x2="22" y2="78" stroke="#334155" stroke-width="5" stroke-linecap="round" />
+            <!-- Direction marker (front) -->
+            <polygon points="50,12 46,20 54,20" fill="#16a34a" />
+            <!-- Body -->
+            <circle cx="50" cy="50" r="8" fill="#1e293b" />
+            <!-- 4 motors -->
+            <g id="m1"><circle cx="22" cy="22" r="10" fill="#dc2626" /><text x="22" y="25" text-anchor="middle" font-size="6" fill="#fff" font-weight="700">CW</text></g>
+            <g id="m2"><circle cx="78" cy="22" r="10" fill="#2563eb" /><text x="78" y="25" text-anchor="middle" font-size="6" fill="#fff" font-weight="700">CCW</text></g>
+            <g id="m3"><circle cx="22" cy="78" r="10" fill="#2563eb" /><text x="22" y="81" text-anchor="middle" font-size="6" fill="#fff" font-weight="700">CCW</text></g>
+            <g id="m4"><circle cx="78" cy="78" r="10" fill="#dc2626" /><text x="78" y="81" text-anchor="middle" font-size="6" fill="#fff" font-weight="700">CW</text></g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="status-grid" id="statusGrid">
+        <div class="stat"><div class="label">垂直</div><div class="value" id="statVert">懸停</div></div>
+        <div class="stat"><div class="label">水平方向</div><div class="value" id="statHoriz">不動</div></div>
+        <div class="stat"><div class="label">旋轉</div><div class="value" id="statYaw">穩定</div></div>
+        <div class="stat"><div class="label">總升力</div><div class="value" id="statLift">240</div></div>
+      </div>
+
+      <div class="hint" id="hint">調整 slider 或點任務按鈕開始 ⤴️</div>
+    </div>
+
+    <!-- 右：控制 -->
+    <div class="panel">
+      <h2>🎛 控制台</h2>
+
+      <div class="motors-grid">
+        <div class="motor-control cw">
+          <div class="top"><span class="name">M1 前左 · CW</span><span class="val" id="v1">60</span></div>
+          <input type="range" id="s1" min="0" max="100" value="60">
+        </div>
+        <div class="motor-control ccw">
+          <div class="top"><span class="name">M2 前右 · CCW</span><span class="val" id="v2">60</span></div>
+          <input type="range" id="s2" min="0" max="100" value="60">
+        </div>
+        <div class="motor-control ccw">
+          <div class="top"><span class="name">M3 後左 · CCW</span><span class="val" id="v3">60</span></div>
+          <input type="range" id="s3" min="0" max="100" value="60">
+        </div>
+        <div class="motor-control cw">
+          <div class="top"><span class="name">M4 後右 · CW</span><span class="val" id="v4">60</span></div>
+          <input type="range" id="s4" min="0" max="100" value="60">
+        </div>
+      </div>
+
+      <div class="task-section">
+        <h3>📋 任務：點按鈕看動作 → 馬達怎麼變</h3>
+        <div class="task-grid">
+          <button data-task="up">🔼 上升</button>
+          <button data-task="down">🔽 下降</button>
+          <button data-task="forward">⬆️ 前進</button>
+          <button data-task="back">⬇️ 後退</button>
+          <button data-task="left">⬅️ 左移</button>
+          <button data-task="right">➡️ 右移</button>
+          <button data-task="yawL">↺ 左轉</button>
+          <button data-task="yawR">↻ 右轉</button>
+          <button class="reset" data-task="reset">🔄 全部回 60% 懸停</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const sliders = [1,2,3,4].map(i => document.getElementById('s'+i));
+  const vals    = [1,2,3,4].map(i => document.getElementById('v'+i));
+  const stage   = document.getElementById('quadStage');
+  const statVert  = document.getElementById('statVert');
+  const statHoriz = document.getElementById('statHoriz');
+  const statYaw   = document.getElementById('statYaw');
+  const statLift  = document.getElementById('statLift');
+  const hint      = document.getElementById('hint');
+
+  const indicators = {
+    up: document.querySelector('.ind-up'),
+    down: document.querySelector('.ind-down'),
+    left: document.querySelector('.ind-left'),
+    right: document.querySelector('.ind-right'),
+    yawL: document.querySelector('.ind-yawL'),
+    yawR: document.querySelector('.ind-yawR'),
+  };
+
+  let yawAngle = 0;
+  let yawVelocity = 0;
+  let pitch = 0, roll = 0;
+
+  // Read motor values: [M1,M2,M3,M4]
+  function readMotors() {
+    return sliders.map(s => parseInt(s.value, 10));
+  }
+
+  // Compute forces
+  function computeForces() {
+    const [M1, M2, M3, M4] = readMotors();
+    const total = M1 + M2 + M3 + M4;
+    const avg = total / 4;
+    // Vertical: above 60 baseline = rise, below = fall
+    const lift = avg - 60;
+    // Pitch: back - front. Positive = forward drift
+    const pitchT = ((M3 + M4) - (M1 + M2)) / 2;
+    // Roll: left - right. Positive = right drift
+    const rollT = ((M1 + M3) - (M2 + M4)) / 2;
+    // Yaw torque: CCW reaction - CW reaction = body yaws CW (right)
+    //   M1+M4 are CW motors (produce CCW reaction on body)
+    //   M2+M3 are CCW motors (produce CW reaction on body)
+    //   So body yaw CW = (CCW reaction sum) - (CW reaction sum) = (M2+M3) - (M1+M4)
+    const yawT = ((M2 + M3) - (M1 + M4)) / 2;
+    return { total, avg, lift, pitchT, rollT, yawT };
+  }
+
+  function updateUI() {
+    const [M1,M2,M3,M4] = readMotors();
+    vals.forEach((v, i) => v.innerText = sliders[i].value);
+
+    const f = computeForces();
+    statLift.innerText = f.total;
+
+    // 垂直
+    if (f.lift > 5)        { statVert.innerText = '上升中 ⬆️'; statVert.parentElement.className = 'stat ok'; show('up'); hide('down'); }
+    else if (f.lift < -5)  { statVert.innerText = '下降中 ⬇️'; statVert.parentElement.className = 'stat bad'; show('down'); hide('up'); }
+    else                   { statVert.innerText = '懸停';      statVert.parentElement.className = 'stat'; hide('up'); hide('down'); }
+
+    // 水平
+    const fwd = -f.pitchT;   // forward = back motors faster
+    const rgt = -f.rollT;    // right = right motors slower... wait check
+    // Actually: positive rollT means M1+M3 (left) > M2+M4 (right) → tilts right → drifts right
+    // So positive rollT = drift right. (rgt should = rollT)
+    const dirX = f.rollT;    // positive = right
+    const dirY = f.pitchT;   // positive = forward (back motors faster pushes nose down → forward)
+    const horizMag = Math.sqrt(dirX*dirX + dirY*dirY);
+
+    if (horizMag < 5) {
+      statHoriz.innerText = '不動 ✋';
+      statHoriz.parentElement.className = 'stat';
+      hide('left'); hide('right');
+    } else {
+      let dir = [];
+      if (dirY > 5) dir.push('前進');
+      if (dirY < -5) dir.push('後退');
+      if (dirX > 5) { dir.push('右移'); show('right'); hide('left'); }
+      else if (dirX < -5) { dir.push('左移'); show('left'); hide('right'); }
+      else { hide('left'); hide('right'); }
+      statHoriz.innerText = dir.join(' + ') || '不動';
+      statHoriz.parentElement.className = 'stat ok';
+    }
+
+    // Pitch/roll visual tilt
+    pitch = f.pitchT * 0.4;
+    roll  = -f.rollT * 0.4;
+
+    // Yaw
+    if (Math.abs(f.yawT) > 3) {
+      yawVelocity = f.yawT * 0.5;
+      if (f.yawT > 0) { statYaw.innerText = '原地右轉 ↻'; statYaw.parentElement.className = 'stat bad'; show('yawR'); hide('yawL'); }
+      else            { statYaw.innerText = '原地左轉 ↺'; statYaw.parentElement.className = 'stat bad'; show('yawL'); hide('yawR'); }
+    } else {
+      yawVelocity = 0;
+      statYaw.innerText = '穩定 ✓';
+      statYaw.parentElement.className = 'stat ok';
+      hide('yawL'); hide('yawR');
+    }
+  }
+
+  function show(k) { indicators[k].classList.add('show'); }
+  function hide(k) { indicators[k].classList.remove('show'); }
+
+  // Animation loop: just yaw rotation + tilt
+  function animate() {
+    yawAngle += yawVelocity * 0.05;
+    stage.style.transform = `translate(-50%, -50%) rotate(${yawAngle}deg) perspective(400px) rotateX(${pitch}deg) rotateY(${roll}deg)`;
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // Slider events
+  sliders.forEach(s => s.addEventListener('input', updateUI));
+
+  // Tasks: preset motor values
+  const TASKS = {
+    up:       [85, 85, 85, 85],
+    down:     [35, 35, 35, 35],
+    forward:  [40, 40, 80, 80],
+    back:     [80, 80, 40, 40],
+    left:     [40, 80, 40, 80],   // right motors faster → tilt left → drift left
+    right:    [80, 40, 80, 40],   // left motors faster → tilt right → drift right
+    yawL:     [80, 40, 40, 80],   // CW (M1,M4) faster → CCW reaction stronger → body yaws CCW (left)
+    yawR:     [40, 80, 80, 40],   // CCW (M2,M3) faster → CW reaction stronger → body yaws CW (right)
+    reset:    [60, 60, 60, 60],
+  };
+  const TASK_HINTS = {
+    up:      '上升：4 顆馬達一起加速。升力 > 重力 → 整台上升。減速就下降。',
+    down:    '下降：4 顆馬達一起減速。升力 < 重力 → 整台下降。',
+    forward: '前進：後面 2 顆 (M3, M4) 加速 → 機頭往前傾 → 升力推力往前 → 飛前進。',
+    back:    '後退：前面 2 顆 (M1, M2) 加速 → 機尾往下 → 升力推力往後 → 飛後退。',
+    left:    '左移：右邊 2 顆 (M2, M4) 加速 → 機身往左傾 → 升力推力往左 → 側飛。',
+    right:   '右移：左邊 2 顆 (M1, M3) 加速 → 機身往右傾 → 升力推力往右 → 側飛。',
+    yawL:    '左轉 yaw：CW 馬達 (M1, M4) 加速 → 它們的 CCW 反扭矩變強 → 機身被擰往左 (CCW) 旋轉。',
+    yawR:    '右轉 yaw：CCW 馬達 (M2, M3) 加速 → 它們的 CW 反扭矩變強 → 機身被擰往右 (CW) 旋轉。',
+    reset:   '回到 60% 懸停：所有馬達一樣轉速，反扭矩兩兩抵消，原地穩定。',
+  };
+
+  document.querySelectorAll('[data-task]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.dataset.task;
+      const cfg = TASKS[t];
+      if (!cfg) return;
+      sliders.forEach((s, i) => s.value = cfg[i]);
+      hint.innerText = '💡 ' + TASK_HINTS[t];
+      updateUI();
+    });
+  });
+
+  // Init
+  updateUI();
+</script>
+</body>
+</html>
