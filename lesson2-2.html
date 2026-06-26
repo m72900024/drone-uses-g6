@@ -58,6 +58,28 @@
     margin: 12px 0 28px;
     font-style: italic;
   }
+  .panel.highlight {
+    border-left: 5px solid #ff8a3d;
+    background: linear-gradient(to right, #fff7ed, #fff);
+  }
+  .big-question {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-left: 5px solid #ff8a3d;
+    border-radius: 18px;
+    padding: 20px 22px;
+    margin: 0 0 22px;
+    box-shadow: 0 4px 14px rgba(43, 108, 176, 0.08);
+  }
+  .big-question h3 {
+    color: #9a3412;
+    margin-bottom: 8px;
+    font-size: 1.18rem;
+  }
+  .big-question p {
+    color: #2d3748;
+    margin: 0;
+  }
   .stage-card {
     background: #fff;
     border-radius: 18px;
@@ -92,6 +114,37 @@
     line-height: 1.75;
     margin: 10px 0;
   }
+  .key-line {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 10px;
+    align-items: stretch;
+    margin: 14px 0;
+  }
+  .key-box {
+    background: #f7fafc;
+    border: 1px solid #d9e3ef;
+    border-radius: 12px;
+    padding: 12px;
+  }
+  .key-box strong {
+    display: block;
+    color: #1a365d;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+  }
+  .key-box span {
+    color: #2d3748;
+    font-weight: 700;
+  }
+  .key-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c05621;
+    font-size: 1.35rem;
+    font-weight: 700;
+  }
   .stage-card .analogy {
     background: #fffbeb;
     border-left: 3px solid #f6ad55;
@@ -100,6 +153,19 @@
     margin-top: 14px;
     font-size: 0.95rem;
     color: #744210;
+  }
+  .recap-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .recap-list div {
+    background: #fff;
+    border: 1px solid #fed7aa;
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: #1a365d;
+    font-weight: 700;
   }
   .stage-card .danger {
     background: #fff5f5;
@@ -124,6 +190,15 @@
     pointer-events: none;
     background: #edf2f7;
   }
+  @media (max-width: 620px) {
+    .key-line {
+      grid-template-columns: 1fr;
+    }
+    .key-arrow {
+      transform: rotate(90deg);
+      min-height: 24px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -135,11 +210,16 @@
 
   <header class="site-head">
     <span class="kicker">第二堂課 · 下半節</span>
-    <h1>🔄 反扭矩與四軸的祕密</h1>
-    <p>上半節知道了「反作用力」這件事。<strong>同一個原理</strong>，為什麼三種飛機長得完全不一樣？這一節就來解開謎底。</p>
+    <h1>🔄 直升機為什麼需要尾槳？</h1>
+    <p>上半節知道了：螺旋槳把空氣往下推，機器就會被往上推。可是旋翼一轉，還會帶來另一個麻煩：<strong>機身也想跟著反方向打轉</strong>。</p>
   </header>
 
-  <h2 class="section-title">🔄 三機種原理對比</h2>
+  <section class="big-question">
+    <h3>這一頁只抓一個問題</h3>
+    <p><strong>直升機靠尾槳穩住機身；四軸沒有尾槳，為什麼也能穩住？</strong></p>
+  </section>
+
+  <h2 class="section-title">🔄 先比三種飛法</h2>
 
   <div class="compare-table">
     <table>
@@ -153,49 +233,74 @@
       <tbody>
         <tr>
           <td>✈️ 飛機</td>
-          <td>翼面伯努利原理</td>
-          <td>需要前進的速度，停下來就會掉</td>
+          <td>靠機翼和前進速度產生升力</td>
+          <td>需要一直往前飛，速度太慢會掉下來</td>
         </tr>
         <tr>
           <td>🚁 直升機</td>
-          <td>大旋翼推力</td>
-          <td>要裝尾槳，否則機身會自己轉</td>
+          <td>一個大旋翼把空氣往下推</td>
+          <td>要用尾槳穩住機身，不然會原地打轉</td>
         </tr>
         <tr class="hilite">
           <td>🛸 四軸 ⭐</td>
-          <td>4 個螺旋槳推力</td>
-          <td>反扭矩自己抵消，不用尾槳</td>
+          <td>四個螺旋槳一起把空氣往下推</td>
+          <td>兩正兩反互相抵消，不用尾槳</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <p class="caption">三種飛機都用反作用力，但解法不一樣。下面我們從直升機的問題講起。</p>
+  <p class="caption">這頁先從直升機的麻煩開始，再看四軸怎麼用更簡潔的方法解決。</p>
 
-  <h2 class="section-title">② 為什麼飛機不會原地打轉？</h2>
+  <h2 class="section-title">② 直升機的麻煩從哪裡來？</h2>
 
   <article class="stage-card">
     <span class="stage-tag">第一步</span>
-    <h3>🚁 先看直升機怎麼飛起來</h3>
+    <h3>🚁 旋翼先把直升機抬起來</h3>
     <img class="media-image" src="assets/img/helicopter-lift.png"
          alt="直升機升力示意圖：主旋翼把空氣往下推，反作用力把直升機往上抬">
-    <p>直升機只有<strong>一個大旋翼</strong>。它的工作原理跟上半節的螺旋槳一模一樣：</p>
-    <p>👉 <strong>槳把空氣用力往下推</strong>（藍色箭頭）<br>
-       👉 <strong>反作用力把整台直升機往上抬</strong>（橘色箭頭）</p>
-    <p>升力夠大，直升機就飛起來了。<strong>到這裡都沒問題。</strong></p>
+    <div class="key-line" aria-label="直升機升力的作用力與反作用力">
+      <div class="key-box">
+        <strong>旋翼做什麼？</strong>
+        <span>把空氣往下推</span>
+      </div>
+      <div class="key-arrow">↔</div>
+      <div class="key-box">
+        <strong>直升機怎麼動？</strong>
+        <span>被空氣往上推</span>
+      </div>
+    </div>
+    <p>這裡跟上一頁完全一樣：只要旋翼推下去的空氣夠多、夠快，反作用力就能把直升機抬起來。<strong>升起來不是問題，穩住方向才是問題。</strong></p>
   </article>
 
   <article class="stage-card solution">
-    <span class="stage-tag">麻煩 + 解法</span>
-    <h3>🚁 但是有個大麻煩：反扭矩</h3>
+    <span class="stage-tag">第二步</span>
+    <h3>🌀 旋翼轉，機身也想反方向轉</h3>
     <img class="media-image" src="assets/img/helicopter-tail-rotor.png"
          alt="直升機尾槳示意圖：機身因反扭矩想反方向轉，尾槳推一個側向力抵消">
-    <p>大旋翼轉得越快，<strong>機身就越想往反方向轉</strong>（紅色弧形箭頭）。這個現象叫做<strong>「反扭矩」</strong>。</p>
+    <p>麻煩來了：大旋翼高速旋轉時，機身會被<strong>反方向扭回去</strong>。圖中的紅色弧形箭頭，就是機身想打轉的方向。</p>
+    <p>這個「被扭回去」的現象叫做<strong>反扭矩</strong>。你可以先把它想成一句話：<strong>旋翼往一邊轉，機身就想往另一邊轉。</strong></p>
     <div class="analogy">
-      💡 <strong>想像一下</strong>：你站在溜冰場，用力把雨傘往一個方向轉，你自己會跟著反方向轉一點——直升機就是這樣，只是更嚴重。
+      💡 <strong>生活比喻</strong>：坐在會轉的椅子上，用力把雨傘往右轉，你的身體會有一點想往左轉。直升機遇到的是同一件事，只是力量大很多。
     </div>
-    <p>所以直升機後面要裝一個<strong>小尾槳</strong>（橘色箭頭）。它推出一個側向的力，剛好<strong>抵消反扭矩</strong>，機身才能穩住。</p>
     <div class="danger">
-      ⚠️ <strong>沒有尾槳的直升機真的會原地打轉</strong>——這就是為什麼直升機後面非裝尾槳不可。
+      ⚠️ <strong>如果沒有東西幫忙抵消，直升機就會原地打轉</strong>，很難穩定往前飛。
+    </div>
+  </article>
+
+  <article class="stage-card solution">
+    <span class="stage-tag">第三步</span>
+    <h3>🚁 尾槳的任務：把機身推住</h3>
+    <p>所以直升機後面要裝一個<strong>小尾槳</strong>。尾槳不是裝飾，它會往側邊推空氣，產生一個側向的力，剛好把機身想打轉的力量抵消掉。</p>
+    <div class="key-line" aria-label="直升機尾槳抵消反扭矩">
+      <div class="key-box">
+        <strong>主旋翼造成什麼？</strong>
+        <span>機身想反方向轉</span>
+      </div>
+      <div class="key-arrow">→</div>
+      <div class="key-box">
+        <strong>尾槳做什麼？</strong>
+        <span>推住機身，讓它穩定</span>
+      </div>
     </div>
     <a href="helicopter-lab.html"
        style="display:flex; align-items:center; gap:14px; background:linear-gradient(135deg,#2b6cb0,#1a365d); color:#fff; padding:16px 20px; border-radius:14px; text-decoration:none; margin-top:18px; box-shadow:0 4px 14px rgba(43,108,176,0.25); transition:transform 0.15s;">
@@ -208,9 +313,27 @@
     </a>
   </article>
 
+  <article class="stage-card smart">
+    <span class="stage-tag">第四步</span>
+    <h3>🛸 四軸沒有尾槳，靠四顆馬達互相抵消</h3>
+    <img class="media-image" src="assets/img/quad-motor-layout.png"
+         alt="四軸馬達配置示意圖：兩顆順時針、兩顆逆時針，反扭矩互相抵消">
+    <p>四軸不是沒有反扭矩，而是用更聰明的方法處理：<strong>兩顆馬達順時針轉，另外兩顆馬達逆時針轉</strong>。</p>
+    <p>只要力量差不多，兩邊造成的扭轉會互相抵消，機身就能穩穩停在空中。下一頁會把這個「兩正兩反」的位置講清楚。</p>
+  </article>
+
+  <section class="panel highlight">
+    <h3>💡 這頁先記三句</h3>
+    <div class="recap-list">
+      <div>1. 螺旋槳把空氣往下推，機器被往上推。</div>
+      <div>2. 旋翼一轉，機身會想往反方向轉，這叫反扭矩。</div>
+      <div>3. 直升機用尾槳抵消；四軸用兩正兩反的馬達抵消。</div>
+    </div>
+  </section>
+
   <section class="panel" style="text-align:center; background:#f0f9ff; margin-top:24px;">
-    <p style="margin:0; color:#1a365d;">直升機要裝尾槳才能不打轉，那四軸呢？</p>
-    <p style="margin:6px 0 0; color:#4a5568;">下一頁來看：<strong>四軸用什麼聰明方法解決反扭矩 →</strong></p>
+    <p style="margin:0; color:#1a365d;">現在知道四軸靠「兩正兩反」抵消反扭矩了。</p>
+    <p style="margin:6px 0 0; color:#4a5568;">下一頁來看：<strong>四顆馬達到底該放在哪些位置 →</strong></p>
   </section>
 
   <h2 class="section-title" style="border-bottom-color:#a0aec0; font-size:1.2rem; color:#4a5568;">📺 想多看？直升機補充影片</h2>
