@@ -53,6 +53,58 @@
     color: #2d3748;
     line-height: 1.7;
   }
+  .force-strip {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: stretch;
+    gap: 10px;
+    margin: 16px 0 4px;
+  }
+  .force-box {
+    background: #f7fafc;
+    border: 1px solid #d9e3ef;
+    border-radius: 12px;
+    padding: 12px;
+  }
+  .force-box strong {
+    display: block;
+    color: #1a365d;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+  }
+  .force-box span {
+    color: #2d3748;
+    font-weight: 700;
+  }
+  .force-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c05621;
+    font-weight: 700;
+    font-size: 1.4rem;
+  }
+  .formula {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .formula-step {
+    background: #fff;
+    border: 1px solid #fed7aa;
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+    color: #1a365d;
+    font-weight: 700;
+  }
+  .formula-arrow {
+    color: #c05621;
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
   .media-placeholder {
     background:
       repeating-linear-gradient(45deg, #f7fafc, #f7fafc 12px, #edf2f7 12px, #edf2f7 24px);
@@ -141,6 +193,17 @@
     object-fit: cover;
     box-shadow: 0 2px 10px rgba(43, 108, 176, 0.12);
   }
+  @media (max-width: 620px) {
+    .force-strip,
+    .formula {
+      grid-template-columns: 1fr;
+    }
+    .force-arrow,
+    .formula-arrow {
+      transform: rotate(90deg);
+      min-height: 24px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -152,13 +215,13 @@
 
   <header class="site-head">
     <span class="kicker">第二堂課 · 飛行原理</span>
-    <h1>⚙️ 為什麼無人機飛得起來？</h1>
-    <p>上一堂看了它能做什麼。這一堂要回答一個更基本的問題：<strong>它到底為什麼能飛上去？</strong></p>
+    <h1>⚙️ 為什麼螺旋槳一轉，無人機就能往上？</h1>
+    <p>上一堂看了它能做什麼。這一堂先抓住一個核心規則：<strong>你把東西往一邊推，自己就會被往反方向推。</strong></p>
   </header>
 
   <section class="panel">
     <h3>🎯 銜接自然課</h3>
-    <p>這堂課會用到自然課的<strong>作用力與反作用力</strong>（牛頓第三運動定律）。沒學到也沒關係，下面五個例子看完就懂。</p>
+    <p>這堂課會用到自然課的<strong>作用力與反作用力</strong>（牛頓第三運動定律）。沒學到也沒關係，先看下面五個例子，找出它們共同的「推」和「被推回來」。</p>
   </section>
 
   <h2 class="section-title">① 反作用力大集合</h2>
@@ -169,7 +232,19 @@
     <img class="media-image" src="assets/img/walking-reaction.png"
          alt="一個小學生側面走路示意圖：藍色箭頭顯示腳推地的力、橘色箭頭顯示地推腳的反作用力，兩個箭頭從同一接觸點 180 度反向延伸">
 
-    <p>你怎麼往前走？<strong>腳往後蹬，地把你往前推。</strong>現在站起來走兩步，感受看看腳底跟地的對話。</p>
+    <div class="force-strip" aria-label="走路的作用力與反作用力">
+      <div class="force-box">
+        <strong>你推了什麼？</strong>
+        <span>腳把地面往後推</span>
+      </div>
+      <div class="force-arrow">↔</div>
+      <div class="force-box">
+        <strong>自己怎麼動？</strong>
+        <span>地面把人往前推</span>
+      </div>
+    </div>
+
+    <p>你怎麼往前走？不是腳自己把你「拉」出去，而是<strong>腳往後蹬，地把你往前推</strong>。現在站起來走兩步，感受看看腳底跟地的對話。</p>
   </article>
 
   <article class="example-card">
@@ -178,7 +253,19 @@
     <img class="media-image" src="assets/img/balloon-reaction.png"
          alt="氣球放氣示意圖：紅色氣球往前飛，結口噴出空氣往後。藍色箭頭顯示氣往後噴、橘色箭頭顯示氣球往前衝，兩個箭頭從氣球結口同一點 180 度反向延伸">
 
-    <p>吹一顆氣球，鬆開——它會亂飛！<strong>氣往後噴，氣球往前衝。</strong>氣球噴出來的東西是「空氣」，跟螺旋槳推的東西一樣。</p>
+    <div class="force-strip" aria-label="氣球放氣的作用力與反作用力">
+      <div class="force-box">
+        <strong>它推了什麼？</strong>
+        <span>氣球把空氣往後噴</span>
+      </div>
+      <div class="force-arrow">↔</div>
+      <div class="force-box">
+        <strong>自己怎麼動？</strong>
+        <span>空氣把氣球往前推</span>
+      </div>
+    </div>
+
+    <p>吹一顆氣球，鬆開——它會亂飛！重點不是「氣球想飛」，而是<strong>氣往後噴，氣球就往前衝</strong>。氣球噴出來的東西是空氣，等一下無人機也會推空氣。</p>
   </article>
 
   <article class="example-card">
@@ -190,7 +277,18 @@
       <div class="fallback" style="display:none">▶ 點我播放：桃園市科普列車「水火箭」（科普新視界）</div>
       <div class="play"><span></span></div>
     </button>
-    <p>自然課做過的水火箭，<strong>水往下噴，火箭往上衝</strong>。跟氣球一模一樣的道理，只是噴的東西換成水。</p>
+    <div class="force-strip" aria-label="水火箭的作用力與反作用力">
+      <div class="force-box">
+        <strong>它推了什麼？</strong>
+        <span>水火箭把水往下噴</span>
+      </div>
+      <div class="force-arrow">↔</div>
+      <div class="force-box">
+        <strong>自己怎麼動？</strong>
+        <span>水把火箭往上推</span>
+      </div>
+    </div>
+    <p>自然課做過的水火箭，原理跟氣球一樣，只是噴的東西換成水。<strong>水往下噴，火箭往上衝</strong>，所以它可以離開發射架。</p>
   </article>
 
   <article class="example-card">
@@ -202,7 +300,18 @@
       <div class="fallback" style="display:none">▶ 點我播放：SpaceX Starship 第五次試飛（含助推器回收）</div>
       <div class="play"><span></span></div>
     </button>
-    <p>火箭引擎把<strong>燃燒後的高溫氣體往下噴</strong>，火箭就被推往上方。<strong>極端版的反作用力</strong>——同樣的原理可以把人送上太空。</p>
+    <div class="force-strip" aria-label="火箭升空的作用力與反作用力">
+      <div class="force-box">
+        <strong>它推了什麼？</strong>
+        <span>火箭把高溫氣體往下噴</span>
+      </div>
+      <div class="force-arrow">↔</div>
+      <div class="force-box">
+        <strong>自己怎麼動？</strong>
+        <span>氣體把火箭往上推</span>
+      </div>
+    </div>
+    <p>火箭引擎把<strong>燃燒後的高溫氣體往下噴</strong>，火箭就被推往上方。這是極端版的反作用力，同樣的規則可以把人送上太空。</p>
   </article>
 
   <article class="example-card">
@@ -214,12 +323,29 @@
       <div class="fallback" style="display:none">▶ 點我播放：UTC 無人機動畫小課堂「飛機是如何飛起來的」（DJI 官方中文）</div>
       <div class="play"><span></span></div>
     </button>
-    <p>終於連回來了：<strong>無人機螺旋槳高速轉動，把空氣用力往下推</strong>→ 反作用力把無人機往上抬。原理跟前面四個一樣，只是它做得<strong>非常快、非常穩</strong>。</p>
+    <div class="force-strip" aria-label="螺旋槳推空氣的作用力與反作用力">
+      <div class="force-box">
+        <strong>它推了什麼？</strong>
+        <span>螺旋槳把空氣往下推</span>
+      </div>
+      <div class="force-arrow">↔</div>
+      <div class="force-box">
+        <strong>自己怎麼動？</strong>
+        <span>空氣把無人機往上推</span>
+      </div>
+    </div>
+    <p>終於連回來了：<strong>無人機螺旋槳高速轉動，把空氣用力往下推</strong>，反作用力就把無人機往上抬。原理跟前面四個一樣，只是它做得<strong>非常快、非常穩</strong>。</p>
   </article>
 
   <section class="panel highlight">
-    <h3>💡 收尾金句</h3>
-    <p>不管推水、推氣、還是推空氣，只要把東西往一個方向用力推，自己就會被推往反方向——這就是<strong>反作用力</strong>。<strong>無人機只是把這件事做得很快、很穩。</strong></p>
+    <h3>💡 共同公式</h3>
+    <p>不管推地面、推水、推氣體，規則都一樣：</p>
+    <div class="formula" aria-label="反作用力共同公式">
+      <div class="formula-step">把東西往一個方向推</div>
+      <div class="formula-arrow">→</div>
+      <div class="formula-step">自己被往反方向推</div>
+    </div>
+    <p>所以無人機不是「魔法飛起來」：它是用螺旋槳<strong>把空氣往下推</strong>，空氣再<strong>把無人機往上推</strong>。無人機只是把這件事做得很快、很穩。</p>
   </section>
 
   <section class="panel" style="text-align:center; background:#f0f9ff;">
