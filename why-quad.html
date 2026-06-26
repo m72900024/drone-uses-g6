@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>為什麼這學期專注四軸？｜國小六年級</title>
-<meta name="description" content="用四格漫畫說明國小六年級無人機課程為什麼選四軸：場地小、動作直覺、能連到自然原理、生活中常見。">
+<meta name="description" content="用漫畫說明國小六年級無人機課程為什麼選四軸：場地小、動作直覺、能連到自然原理、生活中常見。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
@@ -24,268 +24,70 @@
     border-radius: 999px;
   }
   .comic-head h1 {
+    color: #111827;
     font-size: clamp(1.8rem, 6vw, 3rem);
     line-height: 1.15;
     margin: 14px 0 10px;
-    color: #111827;
   }
   .comic-head p {
     color: var(--muted);
     font-size: 1.05rem;
   }
-
-  .comic-strip {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin: 24px 0;
-  }
-  .comic-panel {
-    min-height: 360px;
-    background:
-      linear-gradient(135deg, rgba(255,255,255,0.94), rgba(235,244,255,0.72)),
-      radial-gradient(circle at 15% 18%, rgba(255,138,61,0.16), transparent 28%);
+  .comic-figure {
+    background: #fff;
     border: 4px solid #111827;
-    border-radius: 12px;
-    box-shadow: 8px 8px 0 rgba(17,24,39,0.12);
-    padding: 18px;
-    position: relative;
+    border-radius: 14px;
+    box-shadow: 10px 10px 0 rgba(17, 24, 39, 0.12);
     overflow: hidden;
+    margin: 22px 0 26px;
   }
-  .comic-panel::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(17,24,39,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(17,24,39,0.035) 1px, transparent 1px);
-    background-size: 18px 18px;
-    pointer-events: none;
-    mix-blend-mode: multiply;
+  .comic-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
-  .panel-number {
-    position: absolute;
-    top: 12px;
-    left: 14px;
-    width: 38px;
-    height: 38px;
-    border: 3px solid #111827;
-    border-radius: 50%;
-    background: #ff8a3d;
-    color: #111827;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 900;
-    z-index: 2;
-  }
-  .speech {
-    position: relative;
-    z-index: 2;
-    max-width: 76%;
-    margin-left: auto;
-    background: #fff;
-    border: 3px solid #111827;
-    border-radius: 18px;
-    padding: 12px 14px;
-    font-weight: 900;
-    line-height: 1.45;
-    box-shadow: 4px 4px 0 rgba(17,24,39,0.1);
-  }
-  .speech::after {
-    content: "";
-    position: absolute;
-    left: 28px;
-    bottom: -16px;
-    width: 22px;
-    height: 22px;
-    background: #fff;
-    border-right: 3px solid #111827;
-    border-bottom: 3px solid #111827;
-    transform: rotate(45deg);
-  }
-  .scene {
-    position: absolute;
-    inset: 84px 18px 18px;
-    z-index: 1;
-  }
-  .quad {
-    position: absolute;
-    width: min(62%, 340px);
-    filter: drop-shadow(0 14px 20px rgba(30, 41, 59, 0.16));
-  }
-  .panel-1 .quad { right: 16px; bottom: 26px; }
-  .panel-2 .quad { right: 18px; top: 62px; width: min(58%, 310px); }
-  .panel-3 .quad { right: 6px; bottom: 16px; width: min(55%, 300px); }
-  .panel-4 .quad { left: 50%; top: 52%; transform: translate(-50%, -50%); width: min(52%, 300px); }
-
-  .runway {
-    position: absolute;
-    left: 0;
-    right: 42%;
-    bottom: 26px;
-    height: 84px;
-    background: #475569;
-    transform: skewX(-20deg);
-    border: 3px solid #111827;
-  }
-  .runway::before {
-    content: "";
-    position: absolute;
-    top: 38px;
-    left: 18px;
-    right: 18px;
-    height: 6px;
-    background: repeating-linear-gradient(90deg, #fff 0 34px, transparent 34px 58px);
-  }
-  .safe-zone {
-    position: absolute;
-    right: 12px;
-    bottom: 18px;
-    width: 170px;
-    height: 92px;
-    border: 4px dashed #38a169;
-    border-radius: 50%;
-    background: rgba(56,161,105,0.08);
-  }
-  .tiny-plane {
-    position: absolute;
-    left: 18px;
-    bottom: 116px;
-    font-size: 3rem;
-    transform: rotate(-7deg);
-  }
-  .caption-tag {
-    position: absolute;
-    left: 16px;
-    bottom: 18px;
-    z-index: 2;
+  .comic-caption {
     background: #111827;
     color: #fff;
-    font-weight: 900;
-    border-radius: 999px;
-    padding: 7px 12px;
-    font-size: 0.92rem;
+    padding: 14px 18px;
+    font-weight: 700;
+    line-height: 1.6;
   }
-
-  .arrows {
-    position: absolute;
-    left: 16px;
-    top: 32px;
-    width: 160px;
-    height: 160px;
-    border: 3px dashed #2b6cb0;
-    border-radius: 50%;
-    background: rgba(235,244,255,0.75);
+  .reason-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin: 22px 0;
   }
-  .arrow {
-    position: absolute;
-    font-size: 2.1rem;
-    font-weight: 900;
-    color: #2b6cb0;
-  }
-  .arrow.up { top: 4px; left: 64px; }
-  .arrow.down { bottom: 4px; left: 64px; }
-  .arrow.left { top: 62px; left: 10px; }
-  .arrow.right { top: 62px; right: 10px; }
-  .remote {
-    position: absolute;
-    left: 34px;
-    bottom: 24px;
-    width: 118px;
-    height: 76px;
-    background: #111827;
-    border-radius: 18px;
-    box-shadow: 4px 4px 0 rgba(17,24,39,0.14);
-  }
-  .remote::before,
-  .remote::after {
-    content: "";
-    position: absolute;
-    top: 24px;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    border: 4px solid #ebf4ff;
-  }
-  .remote::before { left: 24px; }
-  .remote::after { right: 24px; }
-
-  .air-column {
-    position: absolute;
-    left: 36px;
-    bottom: 36px;
-    width: 180px;
-    height: 176px;
-    border-radius: 28px;
-    background: repeating-linear-gradient(180deg, rgba(43,108,176,0.22) 0 10px, transparent 10px 24px);
-    transform: skewX(-8deg);
-  }
-  .force-up {
-    position: absolute;
-    left: 72px;
-    top: 18px;
-    font-size: 4.4rem;
-    color: #38a169;
-    font-weight: 900;
-    text-shadow: 3px 3px 0 rgba(17,24,39,0.1);
-  }
-  .force-down {
-    position: absolute;
-    left: 88px;
-    bottom: 12px;
-    font-size: 4.4rem;
-    color: #2b6cb0;
-    font-weight: 900;
-    text-shadow: 3px 3px 0 rgba(17,24,39,0.1);
-  }
-
-  .use-icons {
-    position: absolute;
-    inset: 12px;
-  }
-  .use-icon {
-    position: absolute;
-    width: 82px;
-    height: 82px;
-    border: 3px solid #111827;
-    border-radius: 18px;
+  .reason-card {
     background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.3rem;
-    box-shadow: 4px 4px 0 rgba(17,24,39,0.1);
-  }
-  .use-icon:nth-child(1) { left: 20px; top: 24px; }
-  .use-icon:nth-child(2) { right: 20px; top: 24px; }
-  .use-icon:nth-child(3) { left: 20px; bottom: 24px; }
-  .use-icon:nth-child(4) { right: 20px; bottom: 24px; }
-
-  .recap-panel {
-    background: #111827;
-    color: #fff;
-    border-radius: 16px;
-    padding: 22px;
+    border: 1px solid var(--line);
+    border-top: 5px solid var(--accent);
+    border-radius: 14px;
     box-shadow: var(--shadow);
-    margin-top: 24px;
+    padding: 16px;
   }
-  .recap-panel h2 {
-    font-size: 1.35rem;
-    margin-bottom: 10px;
+  .reason-card strong {
+    display: block;
+    color: #1a365d;
+    font-size: 1.02rem;
+    margin-bottom: 6px;
   }
-  .recap-panel p {
-    color: #e5e7eb;
+  .reason-card p {
+    color: var(--muted);
+    font-size: 0.94rem;
+    line-height: 1.6;
   }
-  .recap-panel strong {
-    color: #ffd166;
+  .recap-panel {
+    background: #f0f9ff;
+    border-left: 5px solid var(--sky);
   }
-
   @media (max-width: 760px) {
-    .comic-strip { grid-template-columns: 1fr; }
-    .comic-panel { min-height: 330px; }
-    .speech { max-width: 82%; font-size: 0.98rem; }
-    .quad { width: min(66%, 300px); }
+    .reason-grid { grid-template-columns: 1fr 1fr; }
+    .comic-figure { box-shadow: 6px 6px 0 rgba(17, 24, 39, 0.12); }
+  }
+  @media (max-width: 480px) {
+    .reason-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -297,71 +99,40 @@
   </nav>
 
   <header class="comic-head">
-    <span class="kicker">四格漫畫</span>
+    <span class="kicker">漫畫說明</span>
     <h1>為什麼這學期專注四軸？</h1>
     <p>不是因為四軸最厲害，而是因為它最適合拿來學「飛行怎麼被控制」。</p>
   </header>
 
-  <main class="comic-strip" aria-label="四格漫畫：為什麼選四軸">
-    <section class="comic-panel panel-1">
-      <div class="panel-number">1</div>
-      <div class="speech">不用跑道，原地就能起飛！</div>
-      <div class="scene">
-        <div class="tiny-plane">✈️</div>
-        <div class="runway"></div>
-        <div class="safe-zone"></div>
-        <img class="quad" src="assets/img/type-quad.png" alt="四軸無人機在小範圍安全區原地起飛">
-        <div class="caption-tag">場地需求小</div>
-      </div>
-    </section>
+  <figure class="comic-figure">
+    <img src="assets/img/why-quad-comic.png" alt="四格漫畫：固定翼需要跑道而四軸能原地起飛；四軸可用方向箭頭理解控制；螺旋槳推空氣產生反作用力；四軸能用在空拍、巡檢、救災與表演。">
+    <figcaption class="comic-caption">
+      看圖想一想：四軸不是每件事都最強，但它最適合初學者理解「場地、控制、力的作用、生活應用」。
+    </figcaption>
+  </figure>
 
-    <section class="comic-panel panel-2">
-      <div class="panel-number">2</div>
-      <div class="speech">上、下、前、後，動作一看就懂。</div>
-      <div class="scene">
-        <div class="arrows" aria-hidden="true">
-          <span class="arrow up">↑</span>
-          <span class="arrow down">↓</span>
-          <span class="arrow left">←</span>
-          <span class="arrow right">→</span>
-        </div>
-        <div class="remote" aria-hidden="true"></div>
-        <img class="quad" src="assets/img/type-quad.png" alt="四軸無人機搭配上下左右方向箭頭">
-        <div class="caption-tag">動作最直覺</div>
-      </div>
-    </section>
+  <section class="reason-grid" aria-label="選四軸的四個理由">
+    <article class="reason-card">
+      <strong>① 場地需求小</strong>
+      <p>不用跑道，安全空間裡就能練習起飛、降落和懸停。</p>
+    </article>
+    <article class="reason-card">
+      <strong>② 動作最直覺</strong>
+      <p>上升、下降、前進、後退、左右移動，都能用馬達轉速來解釋。</p>
+    </article>
+    <article class="reason-card">
+      <strong>③ 連到自然原理</strong>
+      <p>螺旋槳把空氣往下推，反作用力讓無人機往上。</p>
+    </article>
+    <article class="reason-card">
+      <strong>④ 生活中常見</strong>
+      <p>空拍、巡檢、救災、燈光秀，很多例子都看得到四軸。</p>
+    </article>
+  </section>
 
-    <section class="comic-panel panel-3">
-      <div class="panel-number">3</div>
-      <div class="speech">空氣往下，無人機就被推上去。</div>
-      <div class="scene">
-        <div class="air-column"></div>
-        <div class="force-up">↑</div>
-        <div class="force-down">↓</div>
-        <img class="quad" src="assets/img/type-quad.png" alt="四軸無人機搭配向上與向下箭頭說明反作用力">
-        <div class="caption-tag">連到自然原理</div>
-      </div>
-    </section>
-
-    <section class="comic-panel panel-4">
-      <div class="panel-number">4</div>
-      <div class="speech">它不是玩具，是很多工作會用到的工具。</div>
-      <div class="scene">
-        <div class="use-icons" aria-hidden="true">
-          <div class="use-icon">🎥</div>
-          <div class="use-icon">🔍</div>
-          <div class="use-icon">🚒</div>
-          <div class="use-icon">✨</div>
-        </div>
-        <img class="quad" src="assets/img/type-quad.png" alt="四軸無人機周圍有空拍、巡檢、救災與燈光秀圖示">
-        <div class="caption-tag">生活中常見</div>
-      </div>
-    </section>
-  </main>
-
-  <section class="recap-panel">
-    <h2>漫畫結論</h2>
-    <p>四軸無人機的重點不是「最強」，而是<strong>最適合學</strong>：它能在小空間起飛，動作可以用馬達轉速解釋，也能接到反作用力、反扭矩和飛行控制。</p>
+  <section class="panel recap-panel">
+    <h3>漫畫結論</h3>
+    <p>後面講結構、玩模擬器、練習控制時，我們都會用<strong>四軸無人機</strong>當主角。</p>
   </section>
 
   <nav class="pager">
