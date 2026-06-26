@@ -49,6 +49,167 @@
   .media-placeholder .mp-label { font-weight: 700; color: #2d3748; font-size: 0.95rem; }
   .media-placeholder .mp-note { font-size: 0.82rem; color: #718096; max-width: 95%; line-height: 1.5; }
 
+  .principle-demo {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin: 18px 0 24px;
+  }
+  .principle-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 3px 12px rgba(43, 108, 176, 0.08);
+  }
+  .principle-card h3 {
+    margin: 0 0 10px;
+    color: #1a365d;
+    font-size: 1.08rem;
+  }
+  .principle-card p {
+    margin: 10px 0 0;
+    color: #2d3748;
+    line-height: 1.6;
+  }
+  .flight-window {
+    position: relative;
+    height: 180px;
+    border-radius: 12px;
+    border: 1px solid #d9e3ef;
+    background:
+      linear-gradient(to right, rgba(43,108,176,0.08) 1px, transparent 1px) 0 0/28px 28px,
+      linear-gradient(to bottom, rgba(43,108,176,0.08) 1px, transparent 1px) 0 0/28px 28px,
+      linear-gradient(180deg, #f0f9ff, #fff);
+    overflow: hidden;
+  }
+  .flight-arrow {
+    position: absolute;
+    color: #c05621;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  .arrow-up { left: 50%; top: 14px; transform: translateX(-50%); }
+  .arrow-forward { right: 26px; top: 78px; }
+  .arrow-turn { right: 24px; top: 22px; color: #7c3aed; font-size: 2.3rem; }
+  .mini-quad {
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    width: 104px;
+    height: 104px;
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s;
+  }
+  .mini-quad.tilt {
+    transform: translate(-44%, -50%) rotate(13deg);
+    animation: drift-forward 2.4s ease-in-out infinite;
+  }
+  .mini-quad.spin {
+    animation: turn-in-place 2.6s linear infinite;
+  }
+  .mini-quad .arm {
+    position: absolute;
+    left: 17px;
+    top: 49px;
+    width: 70px;
+    height: 7px;
+    background: #334155;
+    border-radius: 999px;
+  }
+  .mini-quad .arm.b { transform: rotate(90deg); }
+  .mini-quad .body {
+    position: absolute;
+    left: 36px;
+    top: 36px;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: #f8fafc;
+    border: 5px solid #1f2937;
+    z-index: 2;
+  }
+  .mini-quad .motor {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #fff;
+    border: 6px solid #475569;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    z-index: 3;
+  }
+  .mini-quad .m1 { left: 8px; top: 8px; }
+  .mini-quad .m2 { right: 8px; top: 8px; }
+  .mini-quad .m3 { left: 8px; bottom: 8px; }
+  .mini-quad .m4 { right: 8px; bottom: 8px; }
+  .thrust {
+    position: absolute;
+    width: 12px;
+    height: 44px;
+    border-radius: 999px;
+    background: linear-gradient(to bottom, rgba(49,130,206,0.45), rgba(49,130,206,0));
+    bottom: -38px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.75;
+  }
+  .fast .thrust { height: 62px; bottom: -54px; background: linear-gradient(to bottom, rgba(56,161,105,0.55), rgba(56,161,105,0)); }
+  @keyframes drift-forward {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 14px -4px; }
+  }
+  @keyframes turn-in-place {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  .concept-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin: 16px 0;
+    box-shadow: 0 3px 12px rgba(43, 108, 176, 0.08);
+    border-left: 5px solid var(--sky);
+  }
+  .concept-card.updown { border-left-color: #38a169; }
+  .concept-card.tiltmove { border-left-color: #2b6cb0; }
+  .concept-card.turning { border-left-color: #7c3aed; }
+  .concept-card h3 {
+    margin: 0 0 8px;
+    color: #1a365d;
+    font-size: 1.18rem;
+  }
+  .concept-card p {
+    color: #2d3748;
+    line-height: 1.7;
+    margin: 8px 0;
+  }
+  .key-rule {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-top: 12px;
+    color: #1e293b;
+    font-weight: 700;
+  }
+  .recipe-detail {
+    margin-top: 12px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: #744210;
+  }
+  .recipe-detail summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: #c05621;
+  }
+  .recipe-detail p {
+    margin: 8px 0 0;
+    color: #744210;
+    font-size: 0.94rem;
+  }
   .action-card {
     background: #fff;
     border-radius: 16px;
@@ -105,6 +266,15 @@
     pointer-events: none;
     background: #edf2f7;
   }
+  @media (max-width: 760px) {
+    .principle-demo { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mini-quad.tilt,
+    .mini-quad.spin {
+      animation: none;
+    }
+  }
 </style>
 </head>
 <body>
@@ -121,76 +291,104 @@
   </header>
 
   <section class="panel highlight">
-    <h3>🤔 還記得我們學到哪了？</h3>
-    <p>第二堂的祕密：<strong>4 顆馬達兩兩抵消反扭矩</strong>，所以四軸能穩穩懸停。</p>
-    <p>但只是「停在原地」沒意思——我們要它<strong>飛去想去的地方</strong>。怎麼辦？</p>
-    <p style="margin-bottom:0;"><strong>答案：故意打破抵消的平衡。</strong>讓某幾顆馬達轉得不一樣，四軸就會傾斜、就會飛走。</p>
+    <h3>🤔 先不要背馬達配方</h3>
+    <p>第二堂學到：四顆馬達平衡時，四軸可以穩穩懸停。</p>
+    <p style="margin-bottom:0;">第三堂只要先抓住一句話：<strong>想控制四軸，就是故意改變平衡。</strong></p>
   </section>
 
-  <h2 class="section-title">🎯 4 種基本動作</h2>
+  <h2 class="section-title">先看懂：四軸不是平移，是先傾斜</h2>
 
-  <p>四軸只能做 4 種基本動作，每一種都是<strong>「馬達轉速不一樣」</strong>造成的：</p>
+  <div class="principle-demo" aria-label="四軸控制的三個畫面">
+    <article class="principle-card">
+      <h3>1. 四顆一樣快</h3>
+      <div class="flight-window">
+        <span class="flight-arrow arrow-up">↑</span>
+        <div class="mini-quad">
+          <span class="arm a"></span><span class="arm b"></span><span class="body"></span>
+          <span class="motor m1"><span class="thrust"></span></span>
+          <span class="motor m2"><span class="thrust"></span></span>
+          <span class="motor m3"><span class="thrust"></span></span>
+          <span class="motor m4"><span class="thrust"></span></span>
+        </div>
+      </div>
+      <p>四顆馬達差不多快，升力平均，四軸就穩穩懸停。</p>
+    </article>
+
+    <article class="principle-card">
+      <h3>2. 一邊比較強</h3>
+      <div class="flight-window">
+        <span class="flight-arrow arrow-forward">→</span>
+        <div class="mini-quad tilt">
+          <span class="arm a"></span><span class="arm b"></span><span class="body"></span>
+          <span class="motor m1"><span class="thrust"></span></span>
+          <span class="motor m2"><span class="thrust"></span></span>
+          <span class="motor m3 fast"><span class="thrust"></span></span>
+          <span class="motor m4 fast"><span class="thrust"></span></span>
+        </div>
+      </div>
+      <p>某一邊馬達比較強，機身會先傾斜；升力斜掉後，四軸才往前或左右飛。</p>
+    </article>
+
+    <article class="principle-card">
+      <h3>3. 反扭矩不平衡</h3>
+      <div class="flight-window">
+        <span class="flight-arrow arrow-turn">↻</span>
+        <div class="mini-quad spin">
+          <span class="arm a"></span><span class="arm b"></span><span class="body"></span>
+          <span class="motor m1 fast"><span class="thrust"></span></span>
+          <span class="motor m2"><span class="thrust"></span></span>
+          <span class="motor m3"><span class="thrust"></span></span>
+          <span class="motor m4 fast"><span class="thrust"></span></span>
+        </div>
+      </div>
+      <p>正轉和逆轉不再互相抵消時，四軸不一定平移，而是原地轉向。</p>
+    </article>
+  </div>
+
+  <h2 class="section-title">三種控制直覺</h2>
+
+  <article class="concept-card updown">
+    <h3>① 全部一起變快：上升 / 下降</h3>
+    <p>這是最直覺的一種。四顆馬達一起加速，總升力變大，四軸往上；四顆一起減速，總升力變小，四軸往下。</p>
+    <div class="key-rule">記法：全部一起變快 = 往上；全部一起變慢 = 往下。</div>
+    <details class="recipe-detail">
+      <summary>老師補充：馬達配方</summary>
+      <p>上升：M1 M2 M3 M4 全部加速。下降：M1 M2 M3 M4 全部減速。</p>
+    </details>
+  </article>
+
+  <article class="concept-card tiltmove">
+    <h3>② 讓機身傾斜：前進 / 後退 / 左右移</h3>
+    <p>四軸要往水平移動，通常不是整台平平滑過去，而是先讓機身傾斜。哪邊馬達比較強，哪邊被抬高，機身就往另一邊傾。</p>
+    <p>機身一傾斜，原本往上的升力就會斜斜推，四軸就往前、往後、往左或往右飛。</p>
+    <div class="key-rule">記法：想水平移動，就先讓四軸傾斜。</div>
+    <details class="recipe-detail">
+      <summary>老師補充：馬達配方</summary>
+      <p>前進：後面兩顆較快、前面兩顆較慢。右移：左邊兩顆較快、右邊兩顆較慢。反方向就反過來。</p>
+    </details>
+  </article>
+
+  <article class="concept-card turning">
+    <h3>③ 打破反扭矩平衡：原地左轉 / 右轉</h3>
+    <p>還記得第二堂嗎？四軸平常靠兩顆正轉、兩顆逆轉互相抵消。要原地轉向時，飛控會故意讓其中一組比較強，讓反扭矩不平衡。</p>
+    <div class="key-rule">記法：平移靠傾斜；原地轉向靠反扭矩失衡。</div>
+    <details class="recipe-detail">
+      <summary>老師補充：馬達配方</summary>
+      <p>左轉：CW 正轉馬達那一組較快。右轉：CCW 逆轉馬達那一組較快。</p>
+    </details>
+  </article>
+
+  <h2 class="section-title">4 種基本動作總覽</h2>
+
+  <p>學生先看懂上面的三種直覺，再看這張總覽會比較不容易卡住：</p>
 
   <img class="media-image" src="assets/img/quad-4-actions.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
        alt="四軸 4 種基本動作對照圖：上升、前進、右移、右轉，各自的馬達轉速分配示意">
   <div class="media-placeholder" style="display:none">
     <span class="mp-icon">🛸</span>
-    <span class="mp-label">4 動作對照圖（生成中）</span>
+    <span class="mp-label">4 動作對照圖</span>
     <span class="mp-note">2×2 格圖示，每格一台小四軸俯視 + 馬達轉速箭頭 + 移動方向</span>
   </div>
-
-  <article class="action-card throttle">
-    <div class="head">
-      <span class="icon">🔼</span>
-      <h3>上升 / 下降</h3>
-      <span class="jargon">throttle 油門</span>
-    </div>
-    <p>最簡單的一個：<strong>4 顆馬達一起加速 → 升力變大 → 整台往上</strong>。</p>
-    <p>反過來，4 顆一起減速 → 升力比重力小 → 整台往下。</p>
-    <div class="recipe">
-      <strong>配方</strong>：M1 ⬆️ M2 ⬆️ M3 ⬆️ M4 ⬆️（全部加速 = 上升）
-    </div>
-  </article>
-
-  <article class="action-card pitch">
-    <div class="head">
-      <span class="icon">⬆️</span>
-      <h3>前進 / 後退</h3>
-      <span class="jargon">pitch 俯仰</span>
-    </div>
-    <p><strong>後面 2 顆加速、前面 2 顆減速</strong>。後面升力比較強 → 機尾抬高 → 機頭往下傾 → 升力斜斜往前推，整台就往前飛了。</p>
-    <p>後退就反過來，前面加速、後面減速。</p>
-    <div class="recipe">
-      <strong>配方</strong>：前 2 顆 ⬇️ 後 2 顆 ⬆️（M1 M2 慢、M3 M4 快 = 前進）
-    </div>
-  </article>
-
-  <article class="action-card roll">
-    <div class="head">
-      <span class="icon">↔️</span>
-      <h3>左移 / 右移</h3>
-      <span class="jargon">roll 翻滾</span>
-    </div>
-    <p><strong>一邊 2 顆加速、另一邊 2 顆減速</strong>。哪邊升力強，哪邊就被抬高，機身往對邊傾，整台往對邊飛。</p>
-    <p>右移：左邊加速、右邊減速。左移就反過來。</p>
-    <div class="recipe">
-      <strong>配方</strong>：左 2 顆 ⬆️ 右 2 顆 ⬇️（M1 M3 快、M2 M4 慢 = 右移）
-    </div>
-  </article>
-
-  <article class="action-card yaw">
-    <div class="head">
-      <span class="icon">🔄</span>
-      <h3>原地左轉 / 右轉</h3>
-      <span class="jargon">yaw 偏航</span>
-    </div>
-    <p>還記得第二堂的<strong>反扭矩兩兩抵消</strong>嗎？這個動作就是<strong>故意讓抵消失衡</strong>。</p>
-    <p>左轉：讓 CW 正轉馬達 (M1, M4) 加速 → 它們的 CCW 反扭矩變強 → 機身被擰往左 (CCW)。</p>
-    <p>右轉：讓 CCW 逆轉馬達 (M2, M3) 加速 → 它們的 CW 反扭矩變強 → 機身被擰往右 (CW)。</p>
-    <div class="recipe">
-      <strong>配方</strong>：CW 對角線 ⬆️ CCW 對角線 ⬇️ = 左轉
-    </div>
-  </article>
 
   <h2 class="section-title">🎬 看 DJI 官方動畫</h2>
   <p>影片把 4 種動作再用 3D 動畫解一次：</p>
