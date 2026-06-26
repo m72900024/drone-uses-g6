@@ -27,6 +27,28 @@
     margin-top: 12px;
   }
   .panel.highlight .lead strong { color: #c05621; }
+  .core-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 14px 0;
+  }
+  .core-box {
+    background: #fff;
+    border: 1px solid #bbf7d0;
+    border-radius: 12px;
+    padding: 14px;
+  }
+  .core-box strong {
+    display: block;
+    color: #166534;
+    font-size: 0.92rem;
+    margin-bottom: 4px;
+  }
+  .core-box span {
+    color: #1a365d;
+    font-weight: 700;
+  }
   .stage-card {
     background: #fff;
     border-radius: 18px;
@@ -58,7 +80,7 @@
     line-height: 1.75;
     margin: 10px 0;
   }
-  .stage-card .media-image {
+  .media-image {
     display: block;
     width: 100%;
     border-radius: 12px;
@@ -118,6 +140,34 @@
     margin: 6px 0;
     line-height: 1.6;
   }
+  .parts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin: 16px 0 8px;
+  }
+  .part-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 3px 12px rgba(43, 108, 176, 0.08);
+  }
+  .part-card h3 {
+    color: #1a365d;
+    font-size: 1.08rem;
+    margin: 0 0 8px;
+  }
+  .part-card p {
+    color: #2d3748;
+    line-height: 1.65;
+    margin: 0;
+  }
+  .part-card.important {
+    border-color: #fed7aa;
+    background: #fff7ed;
+  }
+  .part-card.important h3 { color: #c05621; }
   .yaw-callout {
     background: #ebf8ff;
     border-left: 4px solid #3182ce;
@@ -165,6 +215,12 @@
     pointer-events: none;
     background: #edf2f7;
   }
+  @media (max-width: 620px) {
+    .core-grid,
+    .parts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
 </head>
 <body>
@@ -176,26 +232,22 @@
 
   <header class="site-head">
     <span class="kicker">第二堂課 · 終章</span>
-    <h1>🛸 認識四軸無人機</h1>
-    <p>看完直升機的尾槳麻煩，現在來認識主角——<strong>四軸無人機</strong>。</p>
+    <h1>🛸 四軸怎麼不用尾槳也能穩住？</h1>
+    <p>看完直升機的尾槳麻煩，現在來看主角的解法：<strong>四軸不是沒有反扭矩，而是讓反扭矩互相抵消。</strong></p>
   </header>
 
   <section class="panel highlight">
-    <h3>🤔 還記得直升機的問題嗎？</h3>
-    <p>看完直升機那套「轉動 → 反扭矩 → 裝個尾槳救火」的流程，你有沒有覺得<strong>有點囉嗦</strong>？</p>
-    <p>幾十年前，工程師就想了：</p>
-    <p class="lead">「能不能<strong>更聰明一點</strong>，不靠尾槳也能搞定反扭矩？」</p>
-    <p>答案，就是這節課的主角 🛸</p>
+    <h3>🤔 先接住上一頁</h3>
+    <p>直升機只有一個大旋翼，所以機身會想往反方向轉，必須用尾槳幫忙推住。</p>
+    <p class="lead">四軸的想法不一樣：<strong>不用尾槳，改用四顆馬達互相平衡。</strong></p>
   </section>
 
   <h2 class="section-title">🔄 四軸的祕密</h2>
 
   <article class="stage-card">
     <span class="stage-tag">核心原理</span>
-    <h3>四顆馬達怎麼互相抵銷力量</h3>
-    <p>每一個轉動的馬達都會擰機身一下——這就是<strong>反扭矩</strong>。如果只有 1 顆馬達，四軸會像沒尾槳的直升機一樣<strong>原地打轉，飛不起來</strong>。</p>
-
-    <p>那聰明的設計是這樣的：四軸的 4 顆馬達其實是「兩種」👇</p>
+    <h3>兩顆正轉、兩顆逆轉，力量互相抵消</h3>
+    <p>每一顆馬達轉動時，都會讓機身產生一點反扭矩。如果四顆都往同一個方向轉，機身就會像直升機沒有尾槳一樣原地打轉。</p>
 
     <div class="motor-table">
       <table>
@@ -224,13 +276,34 @@
       </table>
     </div>
 
-    <img class="media-image" src="assets/img/quad-motor-layout.png"
+    <img class="media-image" src="assets/img/quad-motor-layout.png?v=20260627a"
          alt="四軸馬達配置示意圖：紅黑線馬達為正轉 CW，白藍線馬達為逆轉 CCW，對角線同方向，反扭矩兩兩抵消">
 
-    <p><strong>2 顆正轉 + 2 顆逆轉</strong>，反扭矩剛好兩兩抵消，機身穩穩浮在空中，<strong>不用尾槳</strong>。</p>
+    <div class="core-grid" aria-label="四軸抵消反扭矩的重點">
+      <div class="core-box">
+        <strong>對角線同方向</strong>
+        <span>兩顆順時針、兩顆逆時針</span>
+      </div>
+      <div class="core-box">
+        <strong>力量剛好配對</strong>
+        <span>反扭矩互相抵消，機身穩住</span>
+      </div>
+    </div>
+
+    <p>所以四軸的聰明地方不是「沒有反扭矩」，而是<strong>把反扭矩安排成兩邊互相抵消</strong>。這就是它不用尾槳也能穩穩懸停的原因。</p>
+
+    <a href="quad-assembly.html"
+       style="display:flex; align-items:center; gap:14px; background:linear-gradient(135deg,#38a169,#1a4731); color:#fff; padding:16px 20px; border-radius:14px; text-decoration:none; margin-top:18px; box-shadow:0 4px 14px rgba(56,161,105,0.25); transition:transform 0.15s;">
+      <span style="font-size:1.8rem;">🧩</span>
+      <span style="flex:1;">
+        <strong style="display:block; font-size:1.05rem;">自己組裝看看：四軸組裝練習場</strong>
+        <small style="opacity:0.9;">把 4 顆馬達 + 4 個螺旋槳放到正確位置，讓四軸成功起飛 →</small>
+      </span>
+      <span style="font-size:1.2rem;">→</span>
+    </a>
 
     <div class="maintenance-box">
-      <h4>🔧 為什麼你應該記住這件事</h4>
+      <h4>🔧 老師補充：為什麼零件不能裝錯</h4>
       <p style="margin:0; color:#744210;">組裝或修理無人機時，正轉跟逆轉馬達<strong>不能裝錯位置</strong>——裝錯了，反扭矩無法抵消，四軸會在地上自己轉、飛不起來。</p>
       <ul>
         <li><strong>馬達線色（業界較通用）</strong>：紅黑線 = 正轉 (CW)，白藍線 = 逆轉 (CCW)</li>
@@ -243,16 +316,6 @@
         <li>維修換零件前一定要看清楚標示</li>
       </ul>
     </div>
-
-    <a href="quad-assembly.html"
-       style="display:flex; align-items:center; gap:14px; background:linear-gradient(135deg,#38a169,#1a4731); color:#fff; padding:16px 20px; border-radius:14px; text-decoration:none; margin-top:18px; box-shadow:0 4px 14px rgba(56,161,105,0.25); transition:transform 0.15s;">
-      <span style="font-size:1.8rem;">🧩</span>
-      <span style="flex:1;">
-        <strong style="display:block; font-size:1.05rem;">自己組裝看看：四軸組裝練習場</strong>
-        <small style="opacity:0.9;">把 4 顆馬達 + 4 個螺旋槳放到正確位置，讓四軸成功起飛 →</small>
-      </span>
-      <span style="font-size:1.2rem;">→</span>
-    </a>
 
     <div class="yaw-callout">
       <p style="margin:0;"><strong>⭐ 那要怎麼讓四軸轉向？</strong></p>
@@ -273,43 +336,31 @@
 
   <h2 class="section-title">🔧 四個關鍵零件</h2>
 
-  <p>四軸看起來像玩具，但裡面有 4 個分工合作的零件，缺一不可。用「人體」來比喻就清楚了：</p>
+  <p>四軸看起來像一台小機器，但它其實是幾個零件合作完成「平衡」這件事。</p>
 
-  <div class="parts-table">
-    <table>
-      <thead>
-        <tr>
-          <th>零件</th>
-          <th>工作</th>
-          <th>像人體的⋯</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>🔋 電池</td>
-          <td>提供能量</td>
-          <td>心臟／食物</td>
-        </tr>
-        <tr>
-          <td>⚙️ 馬達 ×4</td>
-          <td>提供轉動的力</td>
-          <td>肌肉</td>
-        </tr>
-        <tr>
-          <td>🪶 螺旋槳 ×4</td>
-          <td>把空氣推下去產生升力</td>
-          <td>手掌（划水）</td>
-        </tr>
-        <tr class="highlight">
-          <td>🧠 飛控電腦</td>
-          <td>決定每顆馬達轉多快</td>
-          <td>大腦</td>
-        </tr>
-      </tbody>
-    </table>
+  <img class="media-image" src="assets/img/quad-parts-overview.png?v=20260627a"
+       alt="四軸無人機四個關鍵零件示意圖：電池、馬達、螺旋槳與飛控電腦">
+
+  <div class="parts-grid" aria-label="四軸四個關鍵零件">
+    <div class="part-card">
+      <h3>🔋 電池</h3>
+      <p>提供能量。沒有電池，馬達和飛控都不能工作。</p>
+    </div>
+    <div class="part-card">
+      <h3>⚙️ 馬達 ×4</h3>
+      <p>讓螺旋槳高速轉動。四顆馬達轉速不同，就會造成不同動作。</p>
+    </div>
+    <div class="part-card">
+      <h3>🪶 螺旋槳 ×4</h3>
+      <p>把空氣往下推，產生把無人機往上托的力量。</p>
+    </div>
+    <div class="part-card important">
+      <h3>🧠 飛控電腦</h3>
+      <p>真正的指揮中心。它一直調整每顆馬達轉多快，讓四軸保持平衡。</p>
+    </div>
   </div>
 
-  <p>👉 真正聰明的地方是<strong>飛控電腦</strong>——它每秒鐘判斷上百次，決定每顆馬達該轉多快，讓四軸保持平衡、或飛去你想去的地方。</p>
+  <p>👉 下一堂課會繼續看：飛控電腦怎麼用「改變四顆馬達轉速」讓四軸前進、後退、左右移動和轉向。</p>
 
   <section class="panel think">
     <h3>💬 想一想</h3>
