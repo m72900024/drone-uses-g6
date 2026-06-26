@@ -140,6 +140,109 @@
     margin: 6px 0;
     line-height: 1.6;
   }
+  .prop-demo {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin: 16px 0 12px;
+  }
+  .prop-card {
+    background: #fff;
+    border: 1px solid #fed7aa;
+    border-radius: 14px;
+    padding: 14px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(43, 108, 176, 0.08);
+  }
+  .prop-card.cw { border-color: #fecaca; }
+  .prop-card.ccw { border-color: #bfdbfe; }
+  .prop-card h5 {
+    margin: 0 0 8px;
+    font-size: 1rem;
+    color: #1a365d;
+  }
+  .prop-stage {
+    position: relative;
+    width: min(210px, 100%);
+    aspect-ratio: 1;
+    margin: 0 auto 10px;
+    display: grid;
+    place-items: center;
+  }
+  .turn-ring {
+    position: absolute;
+    inset: 12px;
+    border: 8px solid transparent;
+    border-top-color: currentColor;
+    border-right-color: currentColor;
+    border-radius: 50%;
+    opacity: 0.9;
+  }
+  .turn-ring::after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 16px solid currentColor;
+    transform: rotate(35deg);
+  }
+  .cw .turn-ring { color: #dc2626; animation: spin-cw 2.4s linear infinite; }
+  .ccw .turn-ring { color: #2563eb; animation: spin-ccw 2.4s linear infinite; }
+  .propeller {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    animation: spin-cw 1.8s linear infinite;
+  }
+  .ccw .propeller { animation-name: spin-ccw; }
+  .blade {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 104px;
+    height: 22px;
+    background: linear-gradient(90deg, #111827, #4b5563 55%, #111827);
+    border-radius: 999px 12px 999px 12px;
+    transform-origin: 0 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  }
+  .blade.one { transform: rotate(16deg) translateX(8px); }
+  .blade.two { transform: rotate(196deg) translateX(8px); }
+  .hub {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 34px;
+    height: 34px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: #f8fafc;
+    border: 6px solid #1f2937;
+    z-index: 2;
+  }
+  .prop-note {
+    margin: 0;
+    color: #2d3748;
+    line-height: 1.55;
+    font-size: 0.94rem;
+  }
+  .prop-note strong { color: #744210; }
+  @keyframes spin-cw {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes spin-ccw {
+    to { transform: rotate(-360deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .turn-ring,
+    .propeller {
+      animation: none;
+    }
+  }
   .parts-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -217,7 +320,8 @@
   }
   @media (max-width: 620px) {
     .core-grid,
-    .parts-grid {
+    .parts-grid,
+    .prop-demo {
       grid-template-columns: 1fr;
     }
   }
@@ -309,8 +413,32 @@
         <li><strong>馬達線色（業界較通用）</strong>：紅黑線 = 正轉 (CW)，白藍線 = 逆轉 (CCW)</li>
         <li><strong>螺旋槳分兩種</strong>：正槳 (CW) 配紅黑線馬達；反槳 (CCW) 配白藍線馬達 — 不能裝錯</li>
       </ul>
-      <img class="media-image" src="assets/img/cw-ccw-propellers.png" style="margin:14px 0 6px;"
-           alt="正槳與反槳對比圖：正槳刻印 R 配紅黑線馬達，反槳刻印 L 配白藍線馬達，兩者是鏡像對稱，都把空氣往下推產生升力">
+      <div class="prop-demo" aria-label="正槳與反槳旋轉方向動畫示意">
+        <div class="prop-card cw">
+          <h5>正槳 CW</h5>
+          <div class="prop-stage" aria-hidden="true">
+            <div class="turn-ring"></div>
+            <div class="propeller">
+              <span class="blade one"></span>
+              <span class="blade two"></span>
+              <span class="hub"></span>
+            </div>
+          </div>
+          <p class="prop-note"><strong>順時針</strong>旋轉，搭配正轉馬達。</p>
+        </div>
+        <div class="prop-card ccw">
+          <h5>反槳 CCW</h5>
+          <div class="prop-stage" aria-hidden="true">
+            <div class="turn-ring"></div>
+            <div class="propeller">
+              <span class="blade one"></span>
+              <span class="blade two"></span>
+              <span class="hub"></span>
+            </div>
+          </div>
+          <p class="prop-note"><strong>逆時針</strong>旋轉，搭配逆轉馬達。</p>
+        </div>
+      </div>
       <ul>
         <li><strong>螺旋槳顏色</strong>：各廠牌不同，沒有絕對標準 → 看槳上的刻印 (R/L 或箭頭) 才準</li>
         <li>維修換零件前一定要看清楚標示</li>
