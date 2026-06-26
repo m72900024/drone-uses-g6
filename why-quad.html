@@ -33,61 +33,85 @@
     color: var(--muted);
     font-size: 1.05rem;
   }
-  .comic-figure {
+  .comic-list {
+    display: grid;
+    gap: 22px;
+    margin: 24px 0;
+  }
+  .comic-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.85fr);
+    align-items: center;
+    gap: 20px;
     background: #fff;
     border: 4px solid #111827;
     border-radius: 14px;
     box-shadow: 10px 10px 0 rgba(17, 24, 39, 0.12);
     overflow: hidden;
-    margin: 22px 0 26px;
   }
-  .comic-figure img {
+  .comic-item:nth-child(even) {
+    grid-template-columns: minmax(260px, 0.85fr) minmax(0, 1.35fr);
+  }
+  .comic-item:nth-child(even) .comic-art {
+    order: 2;
+  }
+  .comic-art {
+    background: #f8fafc;
+  }
+  .comic-art img {
     display: block;
     width: 100%;
     height: auto;
   }
-  .comic-caption {
-    background: #111827;
-    color: #fff;
-    padding: 14px 18px;
-    font-weight: 700;
-    line-height: 1.6;
+  .comic-copy {
+    padding: 22px;
   }
-  .reason-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin: 22px 0;
+  .comic-copy .step {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #111827;
+    border: 3px solid #111827;
+    font-weight: 900;
+    margin-bottom: 12px;
   }
-  .reason-card {
-    background: #fff;
-    border: 1px solid var(--line);
-    border-top: 5px solid var(--accent);
-    border-radius: 14px;
-    box-shadow: var(--shadow);
-    padding: 16px;
+  .comic-copy h2 {
+    color: #111827;
+    font-size: 1.45rem;
+    line-height: 1.25;
+    margin-bottom: 10px;
   }
-  .reason-card strong {
-    display: block;
-    color: #1a365d;
+  .comic-copy p {
+    color: #334155;
     font-size: 1.02rem;
-    margin-bottom: 6px;
-  }
-  .reason-card p {
-    color: var(--muted);
-    font-size: 0.94rem;
     line-height: 1.6;
+  }
+  .comic-copy .short {
+    display: block;
+    color: var(--sky);
+    font-weight: 900;
+    margin-top: 10px;
   }
   .recap-panel {
     background: #f0f9ff;
     border-left: 5px solid var(--sky);
   }
   @media (max-width: 760px) {
-    .reason-grid { grid-template-columns: 1fr 1fr; }
-    .comic-figure { box-shadow: 6px 6px 0 rgba(17, 24, 39, 0.12); }
-  }
-  @media (max-width: 480px) {
-    .reason-grid { grid-template-columns: 1fr; }
+    .comic-item,
+    .comic-item:nth-child(even) {
+      grid-template-columns: 1fr;
+      box-shadow: 6px 6px 0 rgba(17, 24, 39, 0.12);
+    }
+    .comic-item:nth-child(even) .comic-art {
+      order: 0;
+    }
+    .comic-copy {
+      padding: 18px;
+    }
   }
 </style>
 </head>
@@ -104,29 +128,53 @@
     <p>不是因為四軸最厲害，而是因為它最適合拿來學「飛行怎麼被控制」。</p>
   </header>
 
-  <figure class="comic-figure">
-    <img src="assets/img/why-quad-comic.png" alt="四格漫畫：固定翼需要跑道而四軸能原地起飛；四軸可用方向箭頭理解控制；螺旋槳推空氣產生反作用力；四軸能用在空拍、巡檢、救災與表演。">
-    <figcaption class="comic-caption">
-      看圖想一想：四軸不是每件事都最強，但它最適合初學者理解「場地、控制、力的作用、生活應用」。
-    </figcaption>
-  </figure>
+  <section class="comic-list" aria-label="選四軸的四個理由">
+    <article class="comic-item">
+      <div class="comic-art">
+        <img src="assets/img/why-quad-panel-1.png" alt="固定翼需要長跑道，四軸無人機可在操場安全區原地起飛。">
+      </div>
+      <div class="comic-copy">
+        <span class="step">1</span>
+        <h2>場地需求小</h2>
+        <p>固定翼通常需要跑道或助跑空間，四軸可以原地起飛、降落和懸停。學校操場只要規劃安全區，就能練習基本操作。</p>
+        <span class="short">重點：不用跑道，先學會安全起降。</span>
+      </div>
+    </article>
 
-  <section class="reason-grid" aria-label="選四軸的四個理由">
-    <article class="reason-card">
-      <strong>① 場地需求小</strong>
-      <p>不用跑道，安全空間裡就能練習起飛、降落和懸停。</p>
+    <article class="comic-item">
+      <div class="comic-art">
+        <img src="assets/img/why-quad-panel-2.png" alt="學生用遙控器控制四軸無人機，上下左右箭頭表示動作方向。">
+      </div>
+      <div class="comic-copy">
+        <span class="step">2</span>
+        <h2>動作最直覺</h2>
+        <p>四軸可以上升、下降、前進、後退、左右移動。學生看著它的動作，再對照遙控器和馬達轉速，比較容易理解「控制」是怎麼發生的。</p>
+        <span class="short">重點：看得到方向，就比較學得會。</span>
+      </div>
     </article>
-    <article class="reason-card">
-      <strong>② 動作最直覺</strong>
-      <p>上升、下降、前進、後退、左右移動，都能用馬達轉速來解釋。</p>
+
+    <article class="comic-item">
+      <div class="comic-art">
+        <img src="assets/img/why-quad-panel-3.png" alt="四軸螺旋槳把空氣往下推，反作用力讓無人機往上。">
+      </div>
+      <div class="comic-copy">
+        <span class="step">3</span>
+        <h2>連到自然原理</h2>
+        <p>螺旋槳把空氣往下推，空氣也把無人機往上推。這正好能銜接自然課的作用力與反作用力，後面再接反扭矩和馬達配置。</p>
+        <span class="short">重點：空氣往下，無人機往上。</span>
+      </div>
     </article>
-    <article class="reason-card">
-      <strong>③ 連到自然原理</strong>
-      <p>螺旋槳把空氣往下推，反作用力讓無人機往上。</p>
-    </article>
-    <article class="reason-card">
-      <strong>④ 生活中常見</strong>
-      <p>空拍、巡檢、救災、燈光秀，很多例子都看得到四軸。</p>
+
+    <article class="comic-item">
+      <div class="comic-art">
+        <img src="assets/img/why-quad-panel-4.png" alt="四軸無人機可用於空拍、巡檢、救災和燈光秀。">
+      </div>
+      <div class="comic-copy">
+        <span class="step">4</span>
+        <h2>生活中常見</h2>
+        <p>空拍、巡檢、救災、燈光秀，很多生活案例都能看到四軸。它不只是玩具，也是一種能幫人完成任務的工具。</p>
+        <span class="short">重點：從生活例子看懂科技用途。</span>
+      </div>
     </article>
   </section>
 
